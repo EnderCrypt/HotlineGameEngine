@@ -73,6 +73,18 @@ public class GameEntities implements Serializable
 		return Collections.unmodifiableSet(result);
 	}
 
+	// COUNT //
+
+	public int countEntities()
+	{
+		return entities.values().stream().mapToInt(e -> e.size()).sum();
+	}
+
+	public int countEntities(Class<? extends GameEntity> entityClass)
+	{
+		return getCollection(entityClass).size();
+	}
+
 	// REMOVE //
 
 	public boolean remove(GameEntity entity)
