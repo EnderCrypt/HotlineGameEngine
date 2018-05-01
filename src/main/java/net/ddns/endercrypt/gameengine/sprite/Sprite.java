@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Sprite implements Serializable
 {
@@ -12,11 +14,31 @@ public class Sprite implements Serializable
 	 * 
 	 */
 
+	private Map<File, Sprite> sprites = new HashMap<>();
+
+	public Sprite get(String file)
+	{
+		return get(new File(file));
+	}
+
+	public Sprite get(File file)
+	{
+		Sprite sprite = sprites.get(file);
+		if (sprite == null)
+		{
+			SpriteManager.loadImage(file);
+
+			sprite = new Sprite(file);
+			sprites.put(file, sprite);
+		}
+		return sprite;
+	}
+
 	private File file;
 
 	private transient BufferedImage image;
 
-	public Sprite(File file)
+	private Sprite(File file)
 	{
 		this.file = file;
 	}

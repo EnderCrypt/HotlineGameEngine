@@ -31,24 +31,24 @@ public class SpriteManager
 		return isLoading;
 	}
 
-	public static BufferedImage getImage(File file)
+	public static void loadImage(File file)
 	{
-		BufferedImage image = images.get(file);
-		if (image == null)
+		if (loadQueue.contains(file) == false)
 		{
-			if (loadQueue.contains(file) == false)
+			try
 			{
-				try
-				{
-					loadQueue.put(file);
-				}
-				catch (InterruptedException e)
-				{
-					// continue
-				}
+				loadQueue.put(file);
+			}
+			catch (InterruptedException e)
+			{
+				return;
 			}
 		}
-		return image;
+	}
+
+	public static BufferedImage getImage(File file)
+	{
+		return images.get(file);
 	}
 
 	private static class SpriteLoader implements Runnable
