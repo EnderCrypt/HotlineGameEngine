@@ -1,5 +1,6 @@
 package net.ddns.endercrypt.gameengine.entities;
 
+import java.awt.Graphics2D;
 import java.io.Serializable;
 
 import net.ddns.endercrypt.gameengine.room.Room;
@@ -14,5 +15,13 @@ public abstract class GameEntity implements Serializable
 
 	Room roomContext; // default
 
-	// TODO: implement
+	public void update()
+	{
+		// TODO: implement
+	}
+
+	public void draw(Graphics2D g2d)
+	{
+		// TODO: implement
+	}
 }

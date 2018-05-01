@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.io.Serializable;
 
 import net.ddns.endercrypt.gameengine.entities.GameEntities;
+import net.ddns.endercrypt.gameengine.entities.GameEntity;
 
 public class Room implements Serializable
 {
@@ -22,11 +23,17 @@ public class Room implements Serializable
 
 	public void update()
 	{
-		// TODO: implement
+		for (GameEntity gameEntity : entities.getAllEntities())
+		{
+			gameEntity.update();
+		}
 	}
 
 	public void draw(Graphics2D g2d)
 	{
-		// TODO: implement
+		for (GameEntity gameEntity : entities.getAllEntities())
+		{
+			gameEntity.draw(g2d);
+		}
 	}
 }
