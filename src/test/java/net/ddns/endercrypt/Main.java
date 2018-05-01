@@ -1,6 +1,6 @@
-package net.ddns.endertsiones;
+package net.ddns.endercrypt;
 
-import net.ddns.endertsion.gameengine.HotlineGameEngine;
+import net.ddns.endercrypt.gameengine.HotlineGameEngine;
 
 public class Main
 {

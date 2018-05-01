@@ -1,4 +1,4 @@
-package net.ddns.endertsion.gameengine;
+package net.ddns.endercrypt.gameengine;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -7,8 +7,8 @@ import java.awt.Graphics2D;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import net.ddns.endercrypt.gameengine.room.RoomManager;
 import net.ddns.endercrypt.library.keyboardmanager.KeyboardManager;
-import net.ddns.endertsion.gameengine.room.RoomManager;
 
 public class HotlineGameEngine
 {

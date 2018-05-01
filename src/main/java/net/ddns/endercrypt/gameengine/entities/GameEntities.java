@@ -1,4 +1,4 @@
-package net.ddns.endertsion.gameengine.entities;
+package net.ddns.endercrypt.gameengine.entities;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import net.ddns.endertsion.gameengine.room.Room;
+import net.ddns.endercrypt.gameengine.room.Room;
 
 public class GameEntities implements Serializable
 {

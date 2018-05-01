@@ -1,10 +1,10 @@
-package net.ddns.endertsion.gameengine.room;
+package net.ddns.endercrypt.gameengine.room;
 
 import java.awt.Graphics2D;
 import java.io.File;
 import java.util.Optional;
 
-import net.ddns.endertsion.gameengine.entities.GameEntity;
+import net.ddns.endercrypt.gameengine.entities.GameEntity;
 
 public class RoomManager
 {

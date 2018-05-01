@@ -1,8 +1,8 @@
-package net.ddns.endertsion.gameengine.entities;
+package net.ddns.endercrypt.gameengine.entities;
 
 import java.io.Serializable;
 
-import net.ddns.endertsion.gameengine.room.Room;
+import net.ddns.endercrypt.gameengine.room.Room;
 
 public abstract class GameEntity implements Serializable
 {

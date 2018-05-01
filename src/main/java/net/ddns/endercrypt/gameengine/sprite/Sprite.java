@@ -1,4 +1,4 @@
-package net.ddns.endertsion.gameengine.sprite;
+package net.ddns.endercrypt.gameengine.sprite;
 
 import java.io.Serializable;
 
