@@ -74,6 +74,11 @@ public class GameEntities implements Serializable
 		return Collections.unmodifiableList(result);
 	}
 
+	public GameEntity[] getAllEntities()
+	{
+		return entities.values().stream().flatMap(e -> e.stream()).toArray(GameEntity[]::new);
+	}
+
 	// COUNT //
 
 	public int countEntities()
