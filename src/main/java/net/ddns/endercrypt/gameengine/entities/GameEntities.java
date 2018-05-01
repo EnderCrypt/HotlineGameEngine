@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import net.ddns.endercrypt.gameengine.room.Room;
 
@@ -74,9 +75,9 @@ public class GameEntities implements Serializable
 		return Collections.unmodifiableList(result);
 	}
 
-	public GameEntity[] getAllEntities()
+	public Stream<GameEntity> getAllEntities()
 	{
-		return entities.values().stream().flatMap(e -> e.stream()).toArray(GameEntity[]::new);
+		return entities.values().stream().flatMap(e -> e.stream());
 	}
 
 	// COUNT //

@@ -23,7 +23,7 @@ public class Room implements Serializable
 
 	public void update()
 	{
-		for (GameEntity gameEntity : entities.getAllEntities())
+		for (GameEntity gameEntity : entities.getAllEntities().toArray(GameEntity[]::new))
 		{
 			gameEntity.update();
 		}
@@ -31,7 +31,7 @@ public class Room implements Serializable
 
 	public void draw(Graphics2D g2d)
 	{
-		for (GameEntity gameEntity : entities.getAllEntities())
+		for (GameEntity gameEntity : entities.getAllEntities().toArray(GameEntity[]::new))
 		{
 			gameEntity.draw(g2d);
 		}
