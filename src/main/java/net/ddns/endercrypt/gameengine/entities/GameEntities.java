@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -65,12 +66,12 @@ public class GameEntities implements Serializable
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T extends GameEntity> Set<? extends T> getEntitiesOfSubtype(Class<T> entityClass)
+	public <T extends GameEntity> List<? extends T> getEntitiesOfSubtype(Class<T> entityClass)
 	{
 		Set<Class<? extends GameEntity>> classes = entities.keySet();
 		classes.removeIf(c -> !entityClass.isAssignableFrom(c));
-		Set<? extends T> result = (Set<? extends T>) classes.stream().flatMap(c -> getCollection(c).stream()).collect(Collectors.toSet());
-		return Collections.unmodifiableSet(result);
+		List<? extends T> result = (List<? extends T>) classes.stream().flatMap(c -> getCollection(c).stream()).collect(Collectors.toList());
+		return Collections.unmodifiableList(result);
 	}
 
 	// COUNT //
