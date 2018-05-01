@@ -7,11 +7,19 @@ import java.awt.Graphics2D;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import net.ddns.endercrypt.library.keyboardmanager.KeyboardManager;
+import net.ddns.endertsion.gameengine.room.RoomManager;
+
 public class HotlineGameEngine
 {
-	private JPanel panel;
-	private JFrame frame;
+	private final JPanel panel;
+	private final JFrame frame;
 
+	private final KeyboardManager keyboard = new KeyboardManager();
+
+	private final RoomManager roomManager = new RoomManager();
+
+	@SuppressWarnings("serial")
 	public HotlineGameEngine(String title)
 	{
 		panel = new JPanel()
@@ -19,10 +27,9 @@ public class HotlineGameEngine
 			@Override
 			protected void paintComponent(Graphics g)
 			{
-				draw((Graphics2D) g);
+				roomManager.draw((Graphics2D) g);
 			}
 		};
-
 		frame = new JFrame(title);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(panel);
@@ -30,10 +37,17 @@ public class HotlineGameEngine
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+
+		keyboard.install(frame);
 	}
 
-	private void draw(Graphics2D g2d)
+	public KeyboardManager getKeyboard()
 	{
-		g2d.fillOval(2, 2, 55, 55);
+		return keyboard;
+	}
+
+	public RoomManager getRoomManager()
+	{
+		return roomManager;
 	}
 }
