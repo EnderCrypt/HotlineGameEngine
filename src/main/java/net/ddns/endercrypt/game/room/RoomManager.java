@@ -47,7 +47,7 @@ public class RoomManager
 	{
 		try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(file)))
 		{
-			output.writeObject(room);
+			save(output);
 		}
 	}
 

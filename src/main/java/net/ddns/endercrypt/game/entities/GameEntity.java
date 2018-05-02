@@ -3,6 +3,10 @@ package net.ddns.endercrypt.game.entities;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.io.Serializable;
+import java.util.ArrayDeque;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Queue;
 
 import net.ddns.endercrypt.game.room.Room;
 import net.ddns.endercrypt.game.sprite.Sprite;
@@ -29,13 +33,16 @@ public abstract class GameEntity implements Serializable
 	protected Position position;
 	protected Motion motion;
 
+	private long framesAlive = 0;
+	private Map<Long, Queue<EntityTimer>> timers = new HashMap<>();
+
 	public GameEntity()
 	{
 		position = new Position(0.0, 0.0);
 		motion = new Motion(0.0, 0.0);
 	}
 
-	protected abstract void onCreate();
+	// INIT //
 
 	protected final void setRoomContext(Room room)
 	{
@@ -58,12 +65,36 @@ public abstract class GameEntity implements Serializable
 
 	// METHODS //
 
+	public long getFramesAlive()
+	{
+		return framesAlive;
+	}
+
+	private Queue<EntityTimer> getTimerQueue(long frame)
+	{
+		Queue<EntityTimer> queue = timers.get(frame);
+		if (queue == null)
+		{
+			queue = new ArrayDeque<>();
+			timers.put(frame, queue);
+		}
+		return queue;
+	}
+
+	protected void setTimer(int frames, EntityTimer entityTimer)
+	{
+		long targetFrame = framesAlive + frames;
+		getTimerQueue(targetFrame).add(entityTimer);
+	}
+
 	public void destroy()
 	{
 		getRoomContext().entities().remove(this);
 	}
 
 	// EVENTS //
+
+	protected abstract void onCreate();
 
 	public final void triggerKeyEvent(KeyboardEvent event)
 	{
@@ -103,9 +134,37 @@ public abstract class GameEntity implements Serializable
 		// ignore
 	}
 
-	public void update()
+	public final void update()
 	{
+		// frames & timer //
+		framesAlive++;
+		Queue<EntityTimer> queue = getTimerQueue(framesAlive);
+		if (queue != null)
+		{
+			for (EntityTimer entityTimer : queue)
+			{
+				try
+				{
+					entityTimer.call();
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+			timers.remove(framesAlive);
+		}
+
+		// motion & position //
 		position.add(motion);
+
+		// update
+		onUpdate();
+	}
+
+	public void onUpdate()
+	{
+		// ignore
 	}
 
 	public void draw(Graphics2D g2d)

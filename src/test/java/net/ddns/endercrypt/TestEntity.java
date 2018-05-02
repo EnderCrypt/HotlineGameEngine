@@ -1,7 +1,6 @@
 package net.ddns.endercrypt;
 
 import java.awt.event.KeyEvent;
-
 import net.ddns.endercrypt.game.entities.GameEntity;
 import net.ddns.endercrypt.game.sprite.Sprite;
 
@@ -48,9 +47,8 @@ public class TestEntity extends GameEntity
 	}
 
 	@Override
-	public void update()
+	public void onUpdate()
 	{
-		super.update();
 		motion.multiplyLength(0.8);
 		rotation += 2.5;
 	}

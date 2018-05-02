@@ -7,7 +7,7 @@ import net.ddns.endercrypt.game.sprite.SpriteManager;
 
 public class Main
 {
-	private static HotlineGameEngine hotlineGameEngine;
+	public static HotlineGameEngine hotlineGameEngine;
 
 	public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException
 	{
