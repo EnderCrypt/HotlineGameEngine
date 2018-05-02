@@ -1,5 +1,10 @@
 package net.ddns.endercrypt.game.sprite;
 
+import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +21,10 @@ import javax.imageio.ImageIO;
 
 public class SpriteManager
 {
+	private static GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	private static GraphicsDevice graphicsDevice = graphicsEnvironment.getDefaultScreenDevice();
+	private static GraphicsConfiguration graphicsConfiguration = graphicsDevice.getDefaultConfiguration();
+
 	private static ExecutorService executor = Executors.newCachedThreadPool();
 
 	private static volatile boolean isLoading = false;
@@ -92,7 +101,12 @@ public class SpriteManager
 						continue;
 					}
 
-					images.put(file, image);
+					BufferedImage compatibleImage = graphicsConfiguration.createCompatibleImage(image.getWidth(), image.getHeight(), Transparency.TRANSLUCENT);
+					Graphics2D g2d = compatibleImage.createGraphics();
+					g2d.drawImage(image, 0, 0, null);
+					g2d.dispose();
+
+					images.put(file, compatibleImage);
 				}
 			}
 			catch (InterruptedException e)
