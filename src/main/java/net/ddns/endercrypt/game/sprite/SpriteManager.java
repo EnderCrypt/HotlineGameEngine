@@ -49,18 +49,23 @@ public class SpriteManager
 		loadImage(new File(file));
 	}
 
-	public static void loadImage(File file) throws SpriteNotFoundException
+	public static synchronized void loadImage(File file) throws SpriteNotFoundException
 	{
 		if (file.exists() == false)
 		{
 			throw new SpriteNotFoundException(file.toString());
 		}
 
+		if (validFiles.contains(file))
+		{
+			return;
+		}
+
 		if (loadQueue.contains(file) == false)
 		{
+			validFiles.add(file);
 			try
 			{
-				validFiles.add(file);
 				loadQueue.put(file);
 			}
 			catch (InterruptedException e)
