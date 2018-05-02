@@ -41,6 +41,9 @@ public class TestEntity extends GameEntity
 		case KeyEvent.VK_RIGHT:
 			motion.x += SPEED;
 			break;
+		case KeyEvent.VK_SPACE:
+			destroy();
+			break;
 		}
 	}
 

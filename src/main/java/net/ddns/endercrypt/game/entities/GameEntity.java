@@ -52,6 +52,15 @@ public abstract class GameEntity implements Serializable
 		return roomContext;
 	}
 
+	// METHODS //
+
+	public void destroy()
+	{
+		getRoomContext().entities().remove(this);
+	}
+
+	// EVENTS //
+
 	public final void triggerKeyEvent(KeyboardEvent event)
 	{
 		int keyCode = event.getKeyCode();
