@@ -51,5 +51,7 @@ public class TestEntity extends GameEntity
 	{
 		motion.multiplyLength(0.8);
 		rotation += 2.5;
+
+		getRoomContext().getView().position().set(position.x, position.y);
 	}
 }

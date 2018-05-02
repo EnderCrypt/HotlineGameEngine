@@ -70,8 +70,7 @@ public class Sprite implements Serializable
 		}
 		else
 		{
-			g2d.setTransform(transform);
-			g2d.drawImage(image, 0, 0, null);
+			g2d.drawImage(image, transform, null);
 		}
 	}
 

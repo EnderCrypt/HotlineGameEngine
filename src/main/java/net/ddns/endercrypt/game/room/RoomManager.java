@@ -9,15 +9,19 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Optional;
 
+import javax.swing.JFrame;
+
 import net.ddns.endercrypt.game.entities.GameEntity;
 
 public class RoomManager
 {
 	private Room room = null;
 
-	public RoomManager()
-	{
+	private JFrame jFrame;
 
+	public RoomManager(JFrame jFrame)
+	{
+		this.jFrame = jFrame;
 	}
 
 	public Room startRoom(GameEntity initEntity)
@@ -31,6 +35,10 @@ public class RoomManager
 	public void setRoom(Room room)
 	{
 		this.room = room;
+		if (room.view == null)
+		{
+			room.view = new View(jFrame);
+		}
 	}
 
 	public Optional<Room> getRoom()

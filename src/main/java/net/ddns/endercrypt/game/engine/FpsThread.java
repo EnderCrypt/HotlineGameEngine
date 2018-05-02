@@ -39,6 +39,9 @@ class FpsThread implements Runnable
 				// update
 				roomManager.getRoom().ifPresent(r -> r.update());
 
+				// view
+				roomManager.getRoom().ifPresent(r -> r.getView().update());
+
 				// draw
 				jFrame.repaint();
 			}

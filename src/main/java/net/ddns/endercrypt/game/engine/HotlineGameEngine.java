@@ -28,9 +28,6 @@ public class HotlineGameEngine
 	@SuppressWarnings("serial")
 	public HotlineGameEngine(String title)
 	{
-		// room manager
-		roomManager = new RoomManager();
-
 		// frame
 		panel = new JPanel()
 		{
@@ -38,16 +35,22 @@ public class HotlineGameEngine
 			protected void paintComponent(Graphics g)
 			{
 				Graphics2D g2d = (Graphics2D) g;
-				roomManager.getRoom().ifPresent(r -> r.draw(g2d));
+				if (roomManager != null)
+				{
+					roomManager.getRoom().ifPresent(r -> r.draw(g2d));
+				}
 			}
 		};
 		frame = new JFrame(title);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(panel);
-		frame.setMinimumSize(new Dimension(1000, 500));
 		frame.pack();
+		frame.setSize(new Dimension(1000, 500));
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+
+		// room manager
+		roomManager = new RoomManager(frame);
 
 		// keyboard listener
 		keyboard = new KeyboardManager();

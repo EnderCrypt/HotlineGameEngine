@@ -1,11 +1,13 @@
 package net.ddns.endercrypt.game.room;
 
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.io.Serializable;
 
 import net.ddns.endercrypt.game.entities.GameEntities;
 import net.ddns.endercrypt.game.entities.GameEntity;
 import net.ddns.endercrypt.library.keyboardmanager.KeyboardEvent;
+import net.ddns.endercrypt.library.position.Position;
 
 public class Room implements Serializable
 {
@@ -19,6 +21,8 @@ public class Room implements Serializable
 
 	private GameEntities entities = new GameEntities(this);
 
+	protected View view;
+
 	public Room()
 	{
 
@@ -28,6 +32,11 @@ public class Room implements Serializable
 	{
 		this();
 		entities.add(initGameEntity);
+	}
+
+	public View getView()
+	{
+		return view;
 	}
 
 	public GameEntities entities()
@@ -53,6 +62,11 @@ public class Room implements Serializable
 
 	public void draw(Graphics2D g2d)
 	{
+		Position viewTranslation = view.getTranslation();
+		AffineTransform transform = new AffineTransform();
+		transform.translate(viewTranslation.x, viewTranslation.y);
+		g2d.setTransform(transform);
+
 		for (GameEntity gameEntity : entities.getAllEntities().toArray(GameEntity[]::new))
 		{
 			gameEntity.draw(g2d);
