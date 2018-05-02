@@ -23,6 +23,8 @@ public class Room implements Serializable
 
 	protected View view;
 
+	private long frameCount = 0;
+
 	public Room()
 	{
 
@@ -32,6 +34,11 @@ public class Room implements Serializable
 	{
 		this();
 		entities.add(initGameEntity);
+	}
+
+	public long getFrameCount()
+	{
+		return frameCount;
 	}
 
 	public View getView()
@@ -54,6 +61,7 @@ public class Room implements Serializable
 
 	public void update()
 	{
+		frameCount++;
 		for (GameEntity gameEntity : entities.getAllEntities().toArray(GameEntity[]::new))
 		{
 			gameEntity.update();
