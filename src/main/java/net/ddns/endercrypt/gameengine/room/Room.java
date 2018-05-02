@@ -2,7 +2,6 @@ package net.ddns.endercrypt.gameengine.room;
 
 import java.awt.Graphics2D;
 import java.io.Serializable;
-
 import net.ddns.endercrypt.gameengine.entities.GameEntities;
 import net.ddns.endercrypt.gameengine.entities.GameEntity;
 
@@ -14,7 +13,20 @@ public class Room implements Serializable
 	 * 
 	 */
 
+	private int framerate = 30;
+
 	private GameEntities entities = new GameEntities(this);
+
+	public Room()
+	{
+
+	}
+
+	public Room(GameEntity initGameEntity)
+	{
+		this();
+		entities.add(initGameEntity);
+	}
 
 	public GameEntities entities()
 	{
@@ -35,5 +47,15 @@ public class Room implements Serializable
 		{
 			gameEntity.draw(g2d);
 		}
+	}
+
+	public void setFramerate(int framerate)
+	{
+		this.framerate = framerate;
+	}
+
+	public int getFramerate()
+	{
+		return framerate;
 	}
 }

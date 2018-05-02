@@ -1,14 +1,12 @@
 package net.ddns.endercrypt.gameengine.room;
 
-import java.awt.Graphics2D;
 import java.io.File;
 import java.util.Optional;
-
 import net.ddns.endercrypt.gameengine.entities.GameEntity;
 
 public class RoomManager
 {
-	private Optional<Room> optionalRoom = Optional.empty();
+	private Room room = null;
 
 	public RoomManager()
 	{
@@ -25,26 +23,17 @@ public class RoomManager
 
 	public void setRoom(Room room)
 	{
-		optionalRoom = Optional.of(room);
+		this.room = room;
 	}
 
-	public Room getRoom()
+	public Optional<Room> getRoom()
 	{
-		return optionalRoom.get();
+		return Optional.ofNullable(room);
 	}
 
 	public boolean hasRoom()
 	{
-		return optionalRoom.isPresent();
-	}
-
-	public void draw(Graphics2D g2d)
-	{
-		if (hasRoom())
-		{
-			Room room = getRoom();
-			room.draw(g2d);
-		}
+		return (room != null);
 	}
 
 	public void save(File file)
