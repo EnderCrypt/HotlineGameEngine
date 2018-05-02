@@ -19,6 +19,8 @@ public class HotlineGameEngine
 
 	private final RoomManager roomManager = new RoomManager();
 
+	private final Thread fpsThread;
+
 	@SuppressWarnings("serial")
 	public HotlineGameEngine(String title)
 	{
@@ -27,7 +29,8 @@ public class HotlineGameEngine
 			@Override
 			protected void paintComponent(Graphics g)
 			{
-				roomManager.draw((Graphics2D) g);
+				Graphics2D g2d = (Graphics2D) g;
+				roomManager.getRoom().ifPresent(r -> r.draw(g2d));
 			}
 		};
 		frame = new JFrame(title);
@@ -39,6 +42,9 @@ public class HotlineGameEngine
 		frame.setVisible(true);
 
 		keyboard.install(frame);
+
+		fpsThread = new Thread(new FpsThread());
+		fpsThread.start();
 	}
 
 	public KeyboardManager getKeyboard()
@@ -49,5 +55,36 @@ public class HotlineGameEngine
 	public RoomManager getRoomManager()
 	{
 		return roomManager;
+	}
+
+	private class FpsThread implements Runnable
+	{
+		@Override
+		public void run()
+		{
+			try
+			{
+				while (true)
+				{
+					// sleep
+					int fps = 30;
+					if (roomManager.hasRoom())
+					{
+						fps = roomManager.getRoom().get().getFramerate();
+					}
+					Thread.sleep((int) (1000.0 / fps));
+
+					// update
+					roomManager.getRoom().ifPresent(r -> r.update());
+
+					// draw
+					frame.repaint();
+				}
+			}
+			catch (InterruptedException e)
+			{
+				return;
+			}
+		}
 	}
 }
