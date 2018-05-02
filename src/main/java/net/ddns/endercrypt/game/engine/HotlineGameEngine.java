@@ -9,21 +9,24 @@ import javax.swing.JPanel;
 
 import net.ddns.endercrypt.game.room.RoomManager;
 import net.ddns.endercrypt.library.keyboardmanager.KeyboardManager;
+import net.ddns.endercrypt.library.keyboardmanager.binds.AnyKey;
 
 public class HotlineGameEngine
 {
 	private final JPanel panel;
 	final JFrame frame;
 
-	private final KeyboardManager keyboard = new KeyboardManager();
+	private final KeyboardManager keyboard;
 
-	final RoomManager roomManager = new RoomManager();
+	final RoomManager roomManager;
 
 	private final Thread fpsThread;
 
 	@SuppressWarnings("serial")
 	public HotlineGameEngine(String title)
 	{
+		roomManager = new RoomManager();
+
 		panel = new JPanel()
 		{
 			@Override
@@ -41,15 +44,12 @@ public class HotlineGameEngine
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 
+		keyboard = new KeyboardManager();
 		keyboard.install(frame);
+		keyboard.getListenerGroups().global().bind(new AnyKey(), new HotlineKeyboardListener(roomManager));
 
 		fpsThread = new Thread(new FpsThread(frame, roomManager));
 		fpsThread.start();
-	}
-
-	public KeyboardManager getKeyboard()
-	{
-		return keyboard;
 	}
 
 	public RoomManager getRoomManager()

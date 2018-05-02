@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 import net.ddns.endercrypt.game.entities.GameEntities;
 import net.ddns.endercrypt.game.entities.GameEntity;
+import net.ddns.endercrypt.library.keyboardmanager.KeyboardEvent;
 
 public class Room implements Serializable
 {
@@ -32,6 +33,14 @@ public class Room implements Serializable
 	public GameEntities entities()
 	{
 		return entities;
+	}
+
+	public void keyEvent(KeyboardEvent keyboardEvent)
+	{
+		for (GameEntity gameEntity : entities.getAllEntities().toArray(GameEntity[]::new))
+		{
+			gameEntity.keyEvent(keyboardEvent);
+		}
 	}
 
 	public void update()

@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 import net.ddns.endercrypt.game.room.Room;
 import net.ddns.endercrypt.game.sprite.Sprite;
+import net.ddns.endercrypt.library.keyboardmanager.KeyboardEvent;
 import net.ddns.endercrypt.library.position.Motion;
 import net.ddns.endercrypt.library.position.Position;
 
@@ -40,6 +41,11 @@ public abstract class GameEntity implements Serializable
 	protected Room getRoomContext()
 	{
 		return roomContext;
+	}
+
+	public void keyEvent(KeyboardEvent keyboardEvent)
+	{
+		// ignore
 	}
 
 	public void update()
