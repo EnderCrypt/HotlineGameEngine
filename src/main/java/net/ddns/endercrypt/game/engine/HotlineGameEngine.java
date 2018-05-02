@@ -3,6 +3,9 @@ package net.ddns.endercrypt.game.engine;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -59,5 +62,15 @@ public class HotlineGameEngine
 	public RoomManager getRoomManager()
 	{
 		return roomManager;
+	}
+
+	public void save(File file) throws FileNotFoundException, IOException
+	{
+		getRoomManager().save(file);
+	}
+
+	public void load(File file) throws FileNotFoundException, ClassNotFoundException, IOException
+	{
+		getRoomManager().load(file);
 	}
 }
