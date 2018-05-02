@@ -13,11 +13,19 @@
 	</repositories>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>com.github.EnderCrypt</groupId>
 			<artifactId>KeyboardManager</artifactId>
 			<version>master-SNAPSHOT</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.github.EnderCrypt</groupId>
+			<artifactId>EndersPositionLibrary</artifactId>
+			<version>e8fc2b19f6</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
