@@ -26,6 +26,7 @@ public abstract class GameEntity implements Serializable
 	private Room roomContext = null;
 
 	protected Sprite sprite = null;
+	protected int depth = 0;
 	protected double rotation = 0;
 	protected double scale_x = 1;
 	protected double scale_y = 1;
@@ -180,5 +181,10 @@ public abstract class GameEntity implements Serializable
 			transform.scale(scale_x, scale_y);
 			sprite.draw(g2d, transform);
 		}
+	}
+
+	public void drawHud(Graphics2D g2d)
+	{
+		// ignore
 	}
 }

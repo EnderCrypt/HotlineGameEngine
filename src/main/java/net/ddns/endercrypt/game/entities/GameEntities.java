@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -75,9 +76,22 @@ public class GameEntities implements Serializable
 		return Collections.unmodifiableList(result);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Stream<GameEntity> getAllEntities()
 	{
-		return entities.values().stream().flatMap(e -> e.stream());
+		return (Stream<GameEntity>) entities.values().stream().flatMap(e -> e.stream());
+	}
+
+	public Stream<GameEntity> getAllEntitiesByDepth()
+	{
+		return getAllEntities().sorted(new Comparator<GameEntity>()
+		{
+			@Override
+			public int compare(GameEntity e1, GameEntity e2)
+			{
+				return Integer.compare(e2.depth, e1.depth);
+			}
+		});
 	}
 
 	// COUNT //

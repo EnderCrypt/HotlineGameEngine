@@ -29,6 +29,10 @@ public class Sprite implements Serializable
 		Sprite sprite = sprites.get(file);
 		if (sprite == null)
 		{
+			if (SpriteManager.validFiles.contains(file) == false)
+			{
+				throw new SpriteNotLoadedException("the file " + file + " has not been loaded");
+			}
 			sprite = new Sprite(file);
 			sprites.put(file, sprite);
 		}

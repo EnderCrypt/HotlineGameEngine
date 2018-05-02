@@ -62,14 +62,24 @@ public class Room implements Serializable
 
 	public void draw(Graphics2D g2d)
 	{
+		AffineTransform defaultTransform = g2d.getTransform();
+
 		Position viewTranslation = view.getTranslation();
 		AffineTransform transform = new AffineTransform();
 		transform.translate(viewTranslation.x, viewTranslation.y);
 		g2d.setTransform(transform);
 
-		for (GameEntity gameEntity : entities.getAllEntities().toArray(GameEntity[]::new))
+		// draw entities
+		for (GameEntity gameEntity : entities.getAllEntitiesByDepth().toArray(GameEntity[]::new))
 		{
 			gameEntity.draw(g2d);
+		}
+
+		// draw hud
+		g2d.setTransform(defaultTransform);
+		for (GameEntity gameEntity : entities.getAllEntities().toArray(GameEntity[]::new))
+		{
+			gameEntity.drawHud(g2d);
 		}
 	}
 
