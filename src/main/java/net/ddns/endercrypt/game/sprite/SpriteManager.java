@@ -44,35 +44,35 @@ public class SpriteManager
 		return isLoading;
 	}
 
-	public static void loadImage(String file) throws SpriteNotFoundException
+	public static Sprite loadImage(String file) throws SpriteNotFoundException
 	{
-		loadImage(new File(file));
+		return loadImage(new File(file));
 	}
 
-	public static synchronized void loadImage(File file) throws SpriteNotFoundException
+	public static synchronized Sprite loadImage(File file) throws SpriteNotFoundException
 	{
 		if (file.exists() == false)
 		{
 			throw new SpriteNotFoundException(file.toString());
 		}
 
-		if (validFiles.contains(file))
+		if (validFiles.contains(file) == false)
 		{
-			return;
+			if (loadQueue.contains(file) == false)
+			{
+				validFiles.add(file);
+				try
+				{
+					loadQueue.put(file);
+				}
+				catch (InterruptedException e)
+				{
+					return null;
+				}
+			}
 		}
 
-		if (loadQueue.contains(file) == false)
-		{
-			validFiles.add(file);
-			try
-			{
-				loadQueue.put(file);
-			}
-			catch (InterruptedException e)
-			{
-				return;
-			}
-		}
+		return Sprite.get(file);
 	}
 
 	public static BufferedImage getImage(File file)

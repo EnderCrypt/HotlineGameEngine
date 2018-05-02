@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.ddns.endercrypt.library.position.Position;
+
 public class Sprite implements Serializable
 {
 	private static final long serialVersionUID = -4503798745690910893L;
@@ -27,7 +29,6 @@ public class Sprite implements Serializable
 		Sprite sprite = sprites.get(file);
 		if (sprite == null)
 		{
-			SpriteManager.loadImage(file);
 			sprite = new Sprite(file);
 			sprites.put(file, sprite);
 		}
@@ -35,6 +36,8 @@ public class Sprite implements Serializable
 	}
 
 	private File file;
+
+	private Position center = new Position(0.0, 0.0);
 
 	private transient BufferedImage image;
 
@@ -46,6 +49,17 @@ public class Sprite implements Serializable
 	public File getFile()
 	{
 		return file;
+	}
+
+	public void setCenter(double x, double y)
+	{
+		center.x = x;
+		center.y = y;
+	}
+
+	public Position getCenter()
+	{
+		return center;
 	}
 
 	public void draw(Graphics2D g2d, AffineTransform transform)

@@ -11,7 +11,7 @@ public class Main
 
 	public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException
 	{
-		SpriteManager.loadImage("res/science.png");
+		SpriteManager.loadImage("res/science.png").setCenter(16, 16);
 
 		hotlineGameEngine = new HotlineGameEngine("Game test");
 		hotlineGameEngine.getRoomManager().startRoom(new TestEntity());

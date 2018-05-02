@@ -113,9 +113,11 @@ public abstract class GameEntity implements Serializable
 		if (sprite != null)
 		{
 			rotation = rotation % 360.0;
+			Position center = sprite.getCenter();
+
 			AffineTransform transform = new AffineTransform();
 			transform.translate(position.x, position.y);
-			transform.rotate(Math.toRadians(rotation), scale_x * 16, scale_y * 16);
+			transform.rotate(Math.toRadians(rotation), scale_x * center.x, scale_y * center.y);
 			transform.scale(scale_x, scale_y);
 			sprite.draw(g2d, transform);
 		}
