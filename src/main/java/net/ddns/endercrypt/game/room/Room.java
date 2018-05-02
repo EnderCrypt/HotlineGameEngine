@@ -1,9 +1,10 @@
-package net.ddns.endercrypt.gameengine.room;
+package net.ddns.endercrypt.game.room;
 
 import java.awt.Graphics2D;
 import java.io.Serializable;
-import net.ddns.endercrypt.gameengine.entities.GameEntities;
-import net.ddns.endercrypt.gameengine.entities.GameEntity;
+
+import net.ddns.endercrypt.game.entities.GameEntities;
+import net.ddns.endercrypt.game.entities.GameEntity;
 
 public class Room implements Serializable
 {

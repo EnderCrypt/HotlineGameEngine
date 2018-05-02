@@ -1,4 +1,4 @@
-package net.ddns.endercrypt.gameengine;
+package net.ddns.endercrypt.game.engine;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -7,17 +7,17 @@ import java.awt.Graphics2D;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import net.ddns.endercrypt.gameengine.room.RoomManager;
+import net.ddns.endercrypt.game.room.RoomManager;
 import net.ddns.endercrypt.library.keyboardmanager.KeyboardManager;
 
 public class HotlineGameEngine
 {
 	private final JPanel panel;
-	private final JFrame frame;
+	final JFrame frame;
 
 	private final KeyboardManager keyboard = new KeyboardManager();
 
-	private final RoomManager roomManager = new RoomManager();
+	final RoomManager roomManager = new RoomManager();
 
 	private final Thread fpsThread;
 
@@ -43,7 +43,7 @@ public class HotlineGameEngine
 
 		keyboard.install(frame);
 
-		fpsThread = new Thread(new FpsThread());
+		fpsThread = new Thread(new FpsThread(this));
 		fpsThread.start();
 	}
 
@@ -55,36 +55,5 @@ public class HotlineGameEngine
 	public RoomManager getRoomManager()
 	{
 		return roomManager;
-	}
-
-	private class FpsThread implements Runnable
-	{
-		@Override
-		public void run()
-		{
-			try
-			{
-				while (true)
-				{
-					// sleep
-					int fps = 30;
-					if (roomManager.hasRoom())
-					{
-						fps = roomManager.getRoom().get().getFramerate();
-					}
-					Thread.sleep((int) (1000.0 / fps));
-
-					// update
-					roomManager.getRoom().ifPresent(r -> r.update());
-
-					// draw
-					frame.repaint();
-				}
-			}
-			catch (InterruptedException e)
-			{
-				return;
-			}
-		}
 	}
 }

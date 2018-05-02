@@ -2,8 +2,8 @@ package net.ddns.endercrypt;
 
 import java.io.FileNotFoundException;
 
-import net.ddns.endercrypt.gameengine.HotlineGameEngine;
-import net.ddns.endercrypt.gameengine.entities.sprite.SpriteManager;
+import net.ddns.endercrypt.game.engine.HotlineGameEngine;
+import net.ddns.endercrypt.game.sprite.SpriteManager;
 
 public class Main
 {

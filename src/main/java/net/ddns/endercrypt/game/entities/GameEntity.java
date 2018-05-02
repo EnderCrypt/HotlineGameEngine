@@ -1,10 +1,10 @@
-package net.ddns.endercrypt.gameengine.entities;
+package net.ddns.endercrypt.game.entities;
 
 import java.awt.Graphics2D;
 import java.io.Serializable;
 
-import net.ddns.endercrypt.gameengine.entities.sprite.Sprite;
-import net.ddns.endercrypt.gameengine.room.Room;
+import net.ddns.endercrypt.game.room.Room;
+import net.ddns.endercrypt.game.sprite.Sprite;
 import net.ddns.endercrypt.library.position.Motion;
 import net.ddns.endercrypt.library.position.Position;
 

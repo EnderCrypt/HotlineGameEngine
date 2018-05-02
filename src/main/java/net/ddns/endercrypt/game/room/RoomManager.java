@@ -1,8 +1,9 @@
-package net.ddns.endercrypt.gameengine.room;
+package net.ddns.endercrypt.game.room;
 
 import java.io.File;
 import java.util.Optional;
-import net.ddns.endercrypt.gameengine.entities.GameEntity;
+
+import net.ddns.endercrypt.game.entities.GameEntity;
 
 public class RoomManager
 {

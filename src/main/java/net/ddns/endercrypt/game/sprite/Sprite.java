@@ -1,4 +1,4 @@
-package net.ddns.endercrypt.gameengine.entities.sprite;
+package net.ddns.endercrypt.game.sprite;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;

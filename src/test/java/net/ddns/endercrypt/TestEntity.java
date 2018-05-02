@@ -1,7 +1,7 @@
 package net.ddns.endercrypt;
 
-import net.ddns.endercrypt.gameengine.entities.GameEntity;
-import net.ddns.endercrypt.gameengine.entities.sprite.Sprite;
+import net.ddns.endercrypt.game.entities.GameEntity;
+import net.ddns.endercrypt.game.sprite.Sprite;
 
 public class TestEntity extends GameEntity
 {
