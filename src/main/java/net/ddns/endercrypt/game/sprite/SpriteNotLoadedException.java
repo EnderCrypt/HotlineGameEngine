@@ -1,5 +1,6 @@
 package net.ddns.endercrypt.game.sprite;
 
+@SuppressWarnings("serial")
 public class SpriteNotLoadedException extends RuntimeException
 {
 

@@ -43,6 +43,9 @@ public class TestEntity extends GameEntity
 		case KeyEvent.VK_SPACE:
 			destroy();
 			break;
+		default:
+			// ignore
+			break;
 		}
 	}
 

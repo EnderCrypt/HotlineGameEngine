@@ -1,5 +1,6 @@
 package net.ddns.endercrypt.game.room;
 
+@SuppressWarnings("serial")
 public class NoRoomPresentException extends RuntimeException
 {
 

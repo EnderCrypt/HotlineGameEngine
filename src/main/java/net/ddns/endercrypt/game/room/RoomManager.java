@@ -26,10 +26,10 @@ public class RoomManager
 
 	public Room startRoom(GameEntity initEntity)
 	{
-		Room room = new Room();
-		room.entities().add(initEntity);
-		setRoom(room);
-		return room;
+		Room newRoom = new Room();
+		newRoom.entities().add(initEntity);
+		setRoom(newRoom);
+		return newRoom;
 	}
 
 	public void setRoom(Room room)
@@ -61,7 +61,10 @@ public class RoomManager
 
 	public void save(ObjectOutputStream output) throws IOException
 	{
-		Room room = getRoom().orElseThrow(() -> new NoRoomPresentException("cant save the game whitout a room present"));
+		if (room == null)
+		{
+			throw new NoRoomPresentException("cant save the game whitout a room present");
+		}
 		output.writeObject(room);
 	}
 

@@ -120,16 +120,19 @@ public abstract class GameEntity implements Serializable
 		}
 	}
 
+	@SuppressWarnings("unused")
 	protected void onKeyPress(int keyCode, boolean shift, boolean ctrl, boolean alt, boolean meta)
 	{
 		// ignore
 	}
 
+	@SuppressWarnings("unused")
 	protected void onKeyHold(int keyCode, boolean shift, boolean ctrl, boolean alt, boolean meta)
 	{
 		// ignore
 	}
 
+	@SuppressWarnings("unused")
 	protected void onKeyRelease(int keyCode, boolean shift, boolean ctrl, boolean alt, boolean meta)
 	{
 		// ignore
@@ -183,6 +186,7 @@ public abstract class GameEntity implements Serializable
 		}
 	}
 
+	@SuppressWarnings("unused")
 	public void drawHud(Graphics2D g2d)
 	{
 		// ignore

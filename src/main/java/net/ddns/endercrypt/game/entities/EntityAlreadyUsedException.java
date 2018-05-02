@@ -1,5 +1,6 @@
 package net.ddns.endercrypt.game.entities;
 
+@SuppressWarnings("serial")
 public class EntityAlreadyUsedException extends RuntimeException
 {
 
