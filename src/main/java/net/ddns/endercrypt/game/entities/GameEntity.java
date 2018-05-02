@@ -35,6 +35,14 @@ public abstract class GameEntity implements Serializable
 
 	protected final void setRoomContext(Room room)
 	{
+		if (roomContext == room)
+		{
+			throw new EntityAlreadyUsedException("The entity " + this + " already is (or has been) in this room");
+		}
+		if (roomContext != null)
+		{
+			throw new EntityAlreadyUsedException("The entity " + this + " already exists in " + roomContext);
+		}
 		this.roomContext = room;
 		onCreate();
 	}

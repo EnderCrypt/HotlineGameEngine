@@ -35,16 +35,16 @@ public class SpriteManager
 		return isLoading;
 	}
 
-	public static void loadImage(String file) throws SpriteNotFound
+	public static void loadImage(String file) throws SpriteNotFoundException
 	{
 		loadImage(new File(file));
 	}
 
-	public static void loadImage(File file) throws SpriteNotFound
+	public static void loadImage(File file) throws SpriteNotFoundException
 	{
 		if (file.exists() == false)
 		{
-			throw new SpriteNotFound(file.toString());
+			throw new SpriteNotFoundException(file.toString());
 		}
 
 		if (loadQueue.contains(file) == false)

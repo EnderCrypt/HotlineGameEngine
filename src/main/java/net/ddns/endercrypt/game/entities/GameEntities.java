@@ -38,7 +38,7 @@ public class GameEntities implements Serializable
 	{
 		if (entity.getRoomContext() != null)
 		{
-			throw new IllegalArgumentException("Cannot add entity " + entity + " as its currently in another room");
+			throw new IllegalArgumentException("Cannot add entity " + entity + " as its already been placed in a room");
 		}
 		entity.setRoomContext(roomContext);
 		getCollection(entity).add(entity);
@@ -100,7 +100,6 @@ public class GameEntities implements Serializable
 		{
 			throw new IllegalArgumentException("Cannot remove entity " + entity + " as its currently not in a room");
 		}
-		entity.setRoomContext(null);
 		return getCollection(entity).remove(entity);
 	}
 
