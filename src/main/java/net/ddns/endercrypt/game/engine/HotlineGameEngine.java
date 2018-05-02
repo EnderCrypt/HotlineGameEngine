@@ -43,7 +43,7 @@ public class HotlineGameEngine
 
 		keyboard.install(frame);
 
-		fpsThread = new Thread(new FpsThread(this));
+		fpsThread = new Thread(new FpsThread(frame, roomManager));
 		fpsThread.start();
 	}
 

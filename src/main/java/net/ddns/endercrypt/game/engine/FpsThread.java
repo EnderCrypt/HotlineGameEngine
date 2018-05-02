@@ -1,18 +1,24 @@
 package net.ddns.endercrypt.game.engine;
 
+import javax.swing.JFrame;
+
+import net.ddns.endercrypt.game.room.RoomManager;
+
 class FpsThread implements Runnable
 {
 	/**
 	 * 
 	 */
-	private final HotlineGameEngine FpsThread;
+	private final JFrame jFrame;
+	private final RoomManager roomManager;
 
 	/**
 	 * @param hotlineGameEngine
 	 */
-	FpsThread(HotlineGameEngine hotlineGameEngine)
+	FpsThread(JFrame jFrame, RoomManager roomManager)
 	{
-		FpsThread = hotlineGameEngine;
+		this.jFrame = jFrame;
+		this.roomManager = roomManager;
 	}
 
 	@Override
@@ -24,17 +30,17 @@ class FpsThread implements Runnable
 			{
 				// sleep
 				int fps = 30;
-				if (FpsThread.roomManager.hasRoom())
+				if (roomManager.hasRoom())
 				{
-					fps = FpsThread.roomManager.getRoom().get().getFramerate();
+					fps = roomManager.getRoom().get().getFramerate();
 				}
 				Thread.sleep((int) (1000.0 / fps));
 
 				// update
-				FpsThread.roomManager.getRoom().ifPresent(r -> r.update());
+				roomManager.getRoom().ifPresent(r -> r.update());
 
 				// draw
-				FpsThread.frame.repaint();
+				jFrame.repaint();
 			}
 		}
 		catch (InterruptedException e)
