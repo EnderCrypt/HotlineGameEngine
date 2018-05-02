@@ -1,6 +1,7 @@
 package net.ddns.endercrypt.game.entities;
 
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.io.Serializable;
 
 import net.ddns.endercrypt.game.room.Room;
@@ -21,6 +22,7 @@ public abstract class GameEntity implements Serializable
 	private Room roomContext = null;
 
 	protected Sprite sprite = null;
+	protected double rotation = 0;
 
 	protected Position position;
 	protected Motion motion;
@@ -108,7 +110,11 @@ public abstract class GameEntity implements Serializable
 	{
 		if (sprite != null)
 		{
-			sprite.draw(g2d, position);
+			rotation = rotation % 360.0;
+			AffineTransform transform = new AffineTransform();
+			transform.translate(position.x, position.y);
+			transform.rotate(Math.toRadians(rotation), 16, 16);
+			sprite.draw(g2d, transform);
 		}
 	}
 }

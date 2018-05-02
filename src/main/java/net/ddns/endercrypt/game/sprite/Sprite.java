@@ -1,13 +1,12 @@
 package net.ddns.endercrypt.game.sprite;
 
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-
-import net.ddns.endercrypt.library.position.Position;
 
 public class Sprite implements Serializable
 {
@@ -49,7 +48,7 @@ public class Sprite implements Serializable
 		return file;
 	}
 
-	public void draw(Graphics2D g2d, Position position)
+	public void draw(Graphics2D g2d, AffineTransform transform)
 	{
 		if (image == null)
 		{
@@ -57,7 +56,8 @@ public class Sprite implements Serializable
 		}
 		else
 		{
-			g2d.drawImage(image, (int) position.x, (int) position.y, null);
+			g2d.setTransform(transform);
+			g2d.drawImage(image, 0, 0, null);
 		}
 	}
 

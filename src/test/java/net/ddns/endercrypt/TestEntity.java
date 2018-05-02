@@ -52,5 +52,6 @@ public class TestEntity extends GameEntity
 	{
 		super.update();
 		motion.multiplyLength(0.8);
+		rotation += 2.5;
 	}
 }
