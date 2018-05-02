@@ -1,10 +1,12 @@
-package net.ddns.endercrypt.gameengine.sprite;
+package net.ddns.endercrypt.gameengine.entities.sprite;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
@@ -21,6 +23,8 @@ public class SpriteManager
 
 	private static Map<File, BufferedImage> images = new HashMap<>();
 
+	protected static Set<File> validFiles = new HashSet<>();
+
 	static
 	{
 		executor.execute(new SpriteLoader());
@@ -31,12 +35,23 @@ public class SpriteManager
 		return isLoading;
 	}
 
-	public static void loadImage(File file)
+	public static void loadImage(String file) throws SpriteNotFound
 	{
+		loadImage(new File(file));
+	}
+
+	public static void loadImage(File file) throws SpriteNotFound
+	{
+		if (file.exists() == false)
+		{
+			throw new SpriteNotFound(file.toString());
+		}
+
 		if (loadQueue.contains(file) == false)
 		{
 			try
 			{
+				validFiles.add(file);
 				loadQueue.put(file);
 			}
 			catch (InterruptedException e)

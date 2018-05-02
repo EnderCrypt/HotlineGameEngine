@@ -1,4 +1,4 @@
-package net.ddns.endercrypt.gameengine.sprite;
+package net.ddns.endercrypt.gameengine.entities.sprite;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.ddns.endercrypt.library.position.Position;
+
 public class Sprite implements Serializable
 {
 	private static final long serialVersionUID = -4503798745690910893L;
@@ -14,20 +16,19 @@ public class Sprite implements Serializable
 	 * 
 	 */
 
-	private Map<File, Sprite> sprites = new HashMap<>();
+	private static Map<File, Sprite> sprites = new HashMap<>();
 
-	public Sprite get(String file)
+	public static Sprite get(String file)
 	{
 		return get(new File(file));
 	}
 
-	public Sprite get(File file)
+	public static Sprite get(File file)
 	{
 		Sprite sprite = sprites.get(file);
 		if (sprite == null)
 		{
 			SpriteManager.loadImage(file);
-
 			sprite = new Sprite(file);
 			sprites.put(file, sprite);
 		}
@@ -48,7 +49,7 @@ public class Sprite implements Serializable
 		return file;
 	}
 
-	public void draw(Graphics2D g2d, int x, int y)
+	public void draw(Graphics2D g2d, Position position)
 	{
 		if (image == null)
 		{
@@ -56,7 +57,8 @@ public class Sprite implements Serializable
 		}
 		else
 		{
-			g2d.drawImage(image, x, y, null);
+			g2d.drawImage(image, (int) position.x, (int) position.y, null);
 		}
 	}
+
 }
