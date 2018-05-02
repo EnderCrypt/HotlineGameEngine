@@ -25,8 +25,10 @@ public class HotlineGameEngine
 	@SuppressWarnings("serial")
 	public HotlineGameEngine(String title)
 	{
+		// room manager
 		roomManager = new RoomManager();
 
+		// frame
 		panel = new JPanel()
 		{
 			@Override
@@ -44,10 +46,12 @@ public class HotlineGameEngine
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 
+		// keyboard listener
 		keyboard = new KeyboardManager();
 		keyboard.install(frame);
 		keyboard.getListenerGroups().global().bind(new AnyKey(), new HotlineKeyboardListener(roomManager));
 
+		// fps thread
 		fpsThread = new Thread(new FpsThread(frame, roomManager));
 		fpsThread.start();
 	}
