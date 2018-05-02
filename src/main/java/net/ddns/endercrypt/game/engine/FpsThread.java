@@ -3,22 +3,19 @@ package net.ddns.endercrypt.game.engine;
 import javax.swing.JFrame;
 
 import net.ddns.endercrypt.game.room.RoomManager;
+import net.ddns.endercrypt.library.keyboardmanager.KeyboardManager;
 
 class FpsThread implements Runnable
 {
-	/**
-	 * 
-	 */
 	private final JFrame jFrame;
 	private final RoomManager roomManager;
+	private final KeyboardManager keyboardManager;
 
-	/**
-	 * @param hotlineGameEngine
-	 */
-	FpsThread(JFrame jFrame, RoomManager roomManager)
+	FpsThread(JFrame jFrame, RoomManager roomManager, KeyboardManager keyboardManager)
 	{
 		this.jFrame = jFrame;
 		this.roomManager = roomManager;
+		this.keyboardManager = keyboardManager;
 	}
 
 	@Override
@@ -35,6 +32,9 @@ class FpsThread implements Runnable
 					fps = roomManager.getRoom().get().getFramerate();
 				}
 				Thread.sleep((int) (1000.0 / fps));
+
+				// keyboard
+				keyboardManager.triggerHeldKeys();
 
 				// update
 				roomManager.getRoom().ifPresent(r -> r.update());

@@ -16,6 +16,6 @@ public class HotlineKeyboardListener implements KeyboardListener
 	@Override
 	public void trigger(KeyboardEvent keyboardEvent)
 	{
-		roomManager.getRoom().ifPresent(r -> r.keyEvent(keyboardEvent));
+		roomManager.getRoom().ifPresent(r -> r.triggerKeyEvent(keyboardEvent));
 	}
 }

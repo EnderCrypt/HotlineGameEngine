@@ -52,7 +52,7 @@ public class HotlineGameEngine
 		keyboard.getListenerGroups().global().bind(new AnyKey(), new HotlineKeyboardListener(roomManager));
 
 		// fps thread
-		fpsThread = new Thread(new FpsThread(frame, roomManager));
+		fpsThread = new Thread(new FpsThread(frame, roomManager, keyboard));
 		fpsThread.start();
 	}
 

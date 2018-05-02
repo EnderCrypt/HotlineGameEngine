@@ -35,11 +35,11 @@ public class Room implements Serializable
 		return entities;
 	}
 
-	public void keyEvent(KeyboardEvent keyboardEvent)
+	public void triggerKeyEvent(KeyboardEvent keyboardEvent)
 	{
 		for (GameEntity gameEntity : entities.getAllEntities().toArray(GameEntity[]::new))
 		{
-			gameEntity.keyEvent(keyboardEvent);
+			gameEntity.triggerKeyEvent(keyboardEvent);
 		}
 	}
 

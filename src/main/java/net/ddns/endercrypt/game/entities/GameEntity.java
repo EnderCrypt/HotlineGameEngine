@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 import net.ddns.endercrypt.game.room.Room;
 import net.ddns.endercrypt.game.sprite.Sprite;
+import net.ddns.endercrypt.library.keyboardmanager.BindType;
 import net.ddns.endercrypt.library.keyboardmanager.KeyboardEvent;
 import net.ddns.endercrypt.library.position.Motion;
 import net.ddns.endercrypt.library.position.Position;
@@ -43,7 +44,40 @@ public abstract class GameEntity implements Serializable
 		return roomContext;
 	}
 
-	public void keyEvent(KeyboardEvent keyboardEvent)
+	public final void triggerKeyEvent(KeyboardEvent event)
+	{
+		int keyCode = event.getKeyCode();
+		boolean shift = event.isShiftHeld();
+		boolean ctrl = event.isCtrlHeld();
+		boolean alt = event.isAltHeld();
+		boolean meta = event.isMetaHeld();
+		switch (event.getBindType())
+		{
+		case PRESS:
+			onKeyPress(keyCode, shift, ctrl, alt, meta);
+			break;
+		case HOLD:
+			onKeyHold(keyCode, shift, ctrl, alt, meta);
+			break;
+		case RELEASE:
+			onKeyRelease(keyCode, shift, ctrl, alt, meta);
+			break;
+		default:
+			throw new RuntimeException("Unknown enum " + BindType.class.getSimpleName() + "." + event.getBindType().toString());
+		}
+	}
+
+	protected void onKeyPress(int keyCode, boolean shift, boolean ctrl, boolean alt, boolean meta)
+	{
+		// ignore
+	}
+
+	protected void onKeyHold(int keyCode, boolean shift, boolean ctrl, boolean alt, boolean meta)
+	{
+		// ignore
+	}
+
+	protected void onKeyRelease(int keyCode, boolean shift, boolean ctrl, boolean alt, boolean meta)
 	{
 		// ignore
 	}
