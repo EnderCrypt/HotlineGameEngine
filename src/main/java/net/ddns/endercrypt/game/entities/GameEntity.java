@@ -23,6 +23,8 @@ public abstract class GameEntity implements Serializable
 
 	protected Sprite sprite = null;
 	protected double rotation = 0;
+	protected double scale_x = 1;
+	protected double scale_y = 1;
 
 	protected Position position;
 	protected Motion motion;
@@ -113,7 +115,8 @@ public abstract class GameEntity implements Serializable
 			rotation = rotation % 360.0;
 			AffineTransform transform = new AffineTransform();
 			transform.translate(position.x, position.y);
-			transform.rotate(Math.toRadians(rotation), 16, 16);
+			transform.rotate(Math.toRadians(rotation), scale_x * 16, scale_y * 16);
+			transform.scale(scale_x, scale_y);
 			sprite.draw(g2d, transform);
 		}
 	}
