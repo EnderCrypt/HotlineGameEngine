@@ -15,7 +15,7 @@ public class Room implements Serializable
 	 * 
 	 */
 
-	private int framerate = 30;
+	private int framerate = 60;
 
 	private GameEntities entities = new GameEntities(this);
 
