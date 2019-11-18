@@ -52,7 +52,7 @@ public abstract class GameEntity implements Serializable
 		{
 			throw new EntityException("The entity " + this + " is dead");
 		}
-		if (entityState == EntityState.ALIVE)
+		if (entityState == EntityState.ATTACHED)
 		{
 			if (this.room == room)
 			{
@@ -63,7 +63,7 @@ public abstract class GameEntity implements Serializable
 				throw new EntityException("The entity " + this + " is already attached to room " + this.room);
 			}
 		}
-		entityState = EntityState.ALIVE;
+		entityState = EntityState.ATTACHED;
 		this.room = room;
 		onCreate();
 	}
