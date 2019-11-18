@@ -1,6 +1,7 @@
 package endercrypt.hotline.engine.room;
 
 
+import java.awt.Dimension;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,8 +10,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Optional;
-
-import javax.swing.JFrame;
+import java.util.function.Supplier;
 
 import endercrypt.hotline.engine.entities.GameEntity;
 
@@ -19,11 +19,11 @@ public class RoomManager
 {
 	private Room room = null;
 	
-	private JFrame jFrame;
+	private Supplier<Dimension> screenDimensionSupplier;
 	
-	public RoomManager(JFrame jFrame)
+	public RoomManager(Supplier<Dimension> screenDimensionSupplier)
 	{
-		this.jFrame = jFrame;
+		this.screenDimensionSupplier = screenDimensionSupplier;
 	}
 	
 	public Room startRoom(GameEntity initEntity)
@@ -36,7 +36,7 @@ public class RoomManager
 	
 	public void setRoom(Room room)
 	{
-		room.attach(new View(jFrame));
+		room.attach(new View(screenDimensionSupplier));
 		this.room = room;
 	}
 	

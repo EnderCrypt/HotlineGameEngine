@@ -2,8 +2,7 @@ package endercrypt.hotline.engine.room;
 
 
 import java.awt.Dimension;
-
-import javax.swing.JFrame;
+import java.util.function.Supplier;
 
 import net.ddns.endercrypt.library.position.Motion;
 import net.ddns.endercrypt.library.position.Position;
@@ -11,14 +10,14 @@ import net.ddns.endercrypt.library.position.Position;
 
 public class View
 {
-	private JFrame jFrame;
+	private Supplier<Dimension> screenDimensionSupplier;
 	
 	private Position position = new Position();
 	private Motion motion = new Motion();
 	
-	public View(JFrame jFrame)
+	public View(Supplier<Dimension> screenDimensionSupplier)
 	{
-		this.jFrame = jFrame;
+		this.screenDimensionSupplier = screenDimensionSupplier;
 	}
 	
 	public Position position()
@@ -49,7 +48,7 @@ public class View
 	
 	public Dimension getDimension()
 	{
-		return jFrame.getSize();
+		return screenDimensionSupplier.get();
 	}
 	
 	public void update()

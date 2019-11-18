@@ -18,7 +18,6 @@ import net.ddns.endercrypt.library.keyboardmanager.binds.AnyKey;
 
 public class HotlineGameEngine
 {
-	private final JPanel panel;
 	private final JFrame frame;
 	
 	private final KeyboardManager keyboard;
@@ -29,8 +28,8 @@ public class HotlineGameEngine
 	
 	public HotlineGameEngine(String title)
 	{
-		// frame
-		panel = new DrawJPanel();
+		// window
+		JPanel panel = new DrawJPanel();
 		frame = new JFrame(title);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(panel);
@@ -40,7 +39,7 @@ public class HotlineGameEngine
 		frame.setVisible(true);
 		
 		// room manager
-		roomManager = new RoomManager(frame);
+		roomManager = new RoomManager(this::getScreenDimension);
 		
 		// keyboard listener
 		keyboard = new KeyboardManager();
@@ -52,16 +51,24 @@ public class HotlineGameEngine
 		fpsThread.start();
 	}
 	
+	// getters
 	public RoomManager getRoomManager()
 	{
 		return roomManager;
 	}
 	
+	// frame methods exposure
 	public void setTitle(String title)
 	{
 		frame.setTitle(title);
 	}
 	
+	public Dimension getScreenDimension()
+	{
+		return frame.getSize();
+	}
+	
+	// save & load
 	public void save(File file) throws FileNotFoundException, IOException
 	{
 		getRoomManager().save(file);
@@ -72,12 +79,14 @@ public class HotlineGameEngine
 		getRoomManager().load(file);
 	}
 	
+	// close
 	public void dispose()
 	{
 		frame.dispose();
 		fpsThread.interrupt();
 	}
 	
+	// jpanel override
 	@SuppressWarnings({ "unused", "serial" })
 	private class DrawJPanel extends JPanel
 	{
