@@ -1,8 +1,9 @@
-package net.ddns.endercrypt;
+package test;
 
 import java.awt.event.KeyEvent;
-import net.ddns.endercrypt.game.entities.GameEntity;
-import net.ddns.endercrypt.game.sprite.Sprite;
+
+import endercrypt.hotline.engine.entities.GameEntity;
+import endercrypt.hotline.engine.sprite.Sprite;
 
 public class TestEntity extends GameEntity
 {

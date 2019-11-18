@@ -1,11 +1,11 @@
-package net.ddns.endercrypt.game.room;
+package endercrypt.hotline.engine.room;
 
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.io.Serializable;
 
-import net.ddns.endercrypt.game.entities.GameEntities;
-import net.ddns.endercrypt.game.entities.GameEntity;
+import endercrypt.hotline.engine.entities.GameEntities;
+import endercrypt.hotline.engine.entities.GameEntity;
 import net.ddns.endercrypt.library.keyboardmanager.KeyboardEvent;
 import net.ddns.endercrypt.library.position.Position;
 

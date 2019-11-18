@@ -1,4 +1,4 @@
-package net.ddns.endercrypt.game.room;
+package endercrypt.hotline.engine.room;
 
 @SuppressWarnings("serial")
 public class NoRoomPresentException extends RuntimeException

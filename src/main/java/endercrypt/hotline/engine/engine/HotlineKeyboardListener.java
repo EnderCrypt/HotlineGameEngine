@@ -1,6 +1,6 @@
-package net.ddns.endercrypt.game.engine;
+package endercrypt.hotline.engine.engine;
 
-import net.ddns.endercrypt.game.room.RoomManager;
+import endercrypt.hotline.engine.room.RoomManager;
 import net.ddns.endercrypt.library.keyboardmanager.KeyboardEvent;
 import net.ddns.endercrypt.library.keyboardmanager.listener.KeyboardListener;
 

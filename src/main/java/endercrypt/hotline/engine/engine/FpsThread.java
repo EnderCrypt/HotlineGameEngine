@@ -1,8 +1,8 @@
-package net.ddns.endercrypt.game.engine;
+package endercrypt.hotline.engine.engine;
 
 import javax.swing.JFrame;
 
-import net.ddns.endercrypt.game.room.RoomManager;
+import endercrypt.hotline.engine.room.RoomManager;
 import net.ddns.endercrypt.library.keyboardmanager.KeyboardManager;
 
 class FpsThread implements Runnable

@@ -1,4 +1,4 @@
-package net.ddns.endercrypt.game.engine;
+package endercrypt.hotline.engine.engine;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -10,7 +10,7 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import net.ddns.endercrypt.game.room.RoomManager;
+import endercrypt.hotline.engine.room.RoomManager;
 import net.ddns.endercrypt.library.keyboardmanager.KeyboardManager;
 import net.ddns.endercrypt.library.keyboardmanager.binds.AnyKey;
 

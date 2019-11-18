@@ -1,4 +1,4 @@
-package net.ddns.endercrypt.game.entities;
+package endercrypt.hotline.engine.entities;
 
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 
-import net.ddns.endercrypt.game.room.Room;
-import net.ddns.endercrypt.game.sprite.Sprite;
+import endercrypt.hotline.engine.room.Room;
+import endercrypt.hotline.engine.sprite.Sprite;
 import net.ddns.endercrypt.library.keyboardmanager.BindType;
 import net.ddns.endercrypt.library.keyboardmanager.KeyboardEvent;
 import net.ddns.endercrypt.library.position.Motion;

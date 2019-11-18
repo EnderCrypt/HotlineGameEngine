@@ -1,4 +1,4 @@
-package net.ddns.endercrypt.game.entities;
+package endercrypt.hotline.engine.entities;
 
 @SuppressWarnings("serial")
 public class EntityAlreadyUsedException extends RuntimeException

@@ -1,9 +1,9 @@
-package net.ddns.endercrypt;
+package test;
 
 import java.io.IOException;
 
-import net.ddns.endercrypt.game.engine.HotlineGameEngine;
-import net.ddns.endercrypt.game.sprite.SpriteManager;
+import endercrypt.hotline.engine.engine.HotlineGameEngine;
+import endercrypt.hotline.engine.sprite.SpriteManager;
 
 public class Main
 {

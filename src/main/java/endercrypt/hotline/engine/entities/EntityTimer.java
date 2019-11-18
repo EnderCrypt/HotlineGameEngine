@@ -1,4 +1,4 @@
-package net.ddns.endercrypt.game.entities;
+package endercrypt.hotline.engine.entities;
 
 import java.io.Serializable;
 

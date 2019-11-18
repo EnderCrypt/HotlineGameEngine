@@ -1,4 +1,4 @@
-package net.ddns.endercrypt.game.sprite;
+package endercrypt.hotline.engine.sprite;
 
 @SuppressWarnings("serial")
 public class SpriteNotFoundException extends RuntimeException

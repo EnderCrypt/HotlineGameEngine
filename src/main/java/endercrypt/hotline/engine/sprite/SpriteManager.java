@@ -1,4 +1,4 @@
-package net.ddns.endercrypt.game.sprite;
+package endercrypt.hotline.engine.sprite;
 
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;

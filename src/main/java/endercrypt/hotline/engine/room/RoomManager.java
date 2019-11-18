@@ -1,4 +1,4 @@
-package net.ddns.endercrypt.game.room;
+package endercrypt.hotline.engine.room;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,7 +11,7 @@ import java.util.Optional;
 
 import javax.swing.JFrame;
 
-import net.ddns.endercrypt.game.entities.GameEntity;
+import endercrypt.hotline.engine.entities.GameEntity;
 
 public class RoomManager
 {
