@@ -28,15 +28,15 @@ public abstract class GameEntity implements Serializable
 	private Room room = null;
 	private EntityState entityState = EntityState.UNATTACHED;
 	
+	private long framesAlive = 0;
+	private Map<Long, Queue<EntityTimer>> timers = new HashMap<>();
+	
 	protected Sprite sprite = null;
 	protected final SpriteInfo spriteInfo = new SpriteInfo();
 	protected int depth = 0;
 	
 	protected final Position position;
 	protected final Motion motion;
-	
-	private long framesAlive = 0;
-	private Map<Long, Queue<EntityTimer>> timers = new HashMap<>();
 	
 	public GameEntity()
 	{
@@ -104,6 +104,10 @@ public abstract class GameEntity implements Serializable
 	
 	public void destroy()
 	{
+		if (entityState != EntityState.ATTACHED)
+		{
+			throw new EntityException("cant remove an entity thats " + entityState);
+		}
 		getRoom().entities().remove(this);
 		room = null;
 		entityState = EntityState.DEAD;
