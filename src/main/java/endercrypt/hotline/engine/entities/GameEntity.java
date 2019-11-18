@@ -3,14 +3,12 @@ package endercrypt.hotline.engine.entities;
 
 import java.awt.Graphics2D;
 import java.io.Serializable;
-import java.util.ArrayDeque;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Queue;
 
 import endercrypt.hotline.engine.room.Room;
 import endercrypt.hotline.engine.sprite.Sprite;
 import endercrypt.hotline.engine.sprite.SpriteInfo;
+import endercrypt.hotline.engine.timer.EntityTimer;
+import endercrypt.hotline.engine.timer.TimerManager;
 import net.ddns.endercrypt.library.keyboardmanager.BindType;
 import net.ddns.endercrypt.library.keyboardmanager.KeyboardEvent;
 import net.ddns.endercrypt.library.position.Motion;
@@ -29,7 +27,7 @@ public abstract class GameEntity implements Serializable
 	private EntityState entityState = EntityState.UNATTACHED;
 	
 	private long framesAlive = 0;
-	private Map<Long, Queue<EntityTimer>> timers = new HashMap<>();
+	private TimerManager timerManager = new TimerManager();
 	
 	protected Sprite sprite = null;
 	protected final SpriteInfo spriteInfo = new SpriteInfo();
@@ -85,21 +83,14 @@ public abstract class GameEntity implements Serializable
 		return framesAlive;
 	}
 	
-	private Queue<EntityTimer> getTimerQueue(long frame)
-	{
-		Queue<EntityTimer> queue = timers.get(frame);
-		if (queue == null)
-		{
-			queue = new ArrayDeque<>();
-			timers.put(frame, queue);
-		}
-		return queue;
-	}
-	
 	protected void setTimer(int frames, EntityTimer entityTimer)
 	{
+		if (frames <= 0)
+		{
+			throw new IllegalArgumentException("frames must be more than 0");
+		}
 		long targetFrame = framesAlive + frames;
-		getTimerQueue(targetFrame).add(entityTimer);
+		timerManager.add(targetFrame, entityTimer);
 	}
 	
 	public void destroy()
@@ -160,24 +151,12 @@ public abstract class GameEntity implements Serializable
 	
 	public final void update()
 	{
-		// frames & timer //
+		// frames
 		framesAlive++;
-		Queue<EntityTimer> queue = getTimerQueue(framesAlive);
-		if (queue != null)
-		{
-			for (EntityTimer entityTimer : queue)
-			{
-				try
-				{
-					entityTimer.call();
-				}
-				catch (Exception e)
-				{
-					e.printStackTrace();
-				}
-			}
-			timers.remove(framesAlive);
-		}
+		
+		// timer //
+		
+		timerManager.update(framesAlive);
 		
 		// motion & position //
 		position.add(motion);
