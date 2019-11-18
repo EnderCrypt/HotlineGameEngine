@@ -48,7 +48,7 @@ public class Sprite implements Serializable
 	{
 		if (image == null)
 		{
-			image = SpriteManager.getImage(file);
+			image = SpriteManager.getSpriteData(file).getImage();
 		}
 		g2d.drawImage(image, transform, null);
 	}
