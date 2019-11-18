@@ -32,8 +32,8 @@ public abstract class GameEntity implements Serializable
 	protected final SpriteInfo spriteInfo = new SpriteInfo();
 	protected int depth = 0;
 	
-	protected Position position;
-	protected Motion motion;
+	protected final Position position;
+	protected final Motion motion;
 	
 	private long framesAlive = 0;
 	private Map<Long, Queue<EntityTimer>> timers = new HashMap<>();
