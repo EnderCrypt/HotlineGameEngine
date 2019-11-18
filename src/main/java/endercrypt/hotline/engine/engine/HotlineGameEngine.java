@@ -39,7 +39,7 @@ public class HotlineGameEngine
 		frame.setVisible(true);
 		
 		// room manager
-		roomManager = new RoomManager(this::getScreenDimension);
+		roomManager = new RoomManager(() -> panel.getSize());
 		
 		// keyboard listener
 		keyboard = new KeyboardManager();
@@ -61,11 +61,6 @@ public class HotlineGameEngine
 	public void setTitle(String title)
 	{
 		frame.setTitle(title);
-	}
-	
-	public Dimension getScreenDimension()
-	{
-		return frame.getSize();
 	}
 	
 	// save & load
