@@ -56,7 +56,7 @@ public class TestEntity extends GameEntity
 	public void onUpdate()
 	{
 		motion.multiplyLength(0.8);
-		rotation += 2.5;
+		spriteInfo.rotation += 2.5;
 		
 		// getRoomContext().getView().position().set(position.x, position.y);
 	}

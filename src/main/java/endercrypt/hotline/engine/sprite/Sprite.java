@@ -3,10 +3,11 @@ package endercrypt.hotline.engine.sprite;
 
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import net.ddns.endercrypt.library.position.Position;
 
 
 public class Sprite implements Serializable
@@ -18,7 +19,7 @@ public class Sprite implements Serializable
 	
 	private Path path;
 	
-	private transient BufferedImage image;
+	private transient SpriteData spriteData;
 	
 	public Sprite(String path)
 	{
@@ -35,13 +36,19 @@ public class Sprite implements Serializable
 		return path;
 	}
 	
-	public void draw(Graphics2D g2d, AffineTransform transform)
+	public void draw(Graphics2D g2d, Position position, SpriteInfo spriteInfo)
 	{
-		if (image == null)
+		// sprite data
+		if (spriteData == null)
 		{
-			image = SpriteManager.getSpriteData(getPath()).getImage();
+			spriteData = SpriteManager.getSpriteData(getPath());
 		}
-		g2d.drawImage(image, transform, null);
+		
+		// transform
+		AffineTransform transform = spriteInfo.generateTransform(position, spriteInfo, spriteData);
+		
+		// draw
+		g2d.drawImage(spriteData.getImage(), transform, null);
 	}
 	
 }

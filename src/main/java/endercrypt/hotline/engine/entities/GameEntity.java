@@ -1,7 +1,7 @@
 package endercrypt.hotline.engine.entities;
 
+
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.HashMap;
@@ -10,41 +10,41 @@ import java.util.Queue;
 
 import endercrypt.hotline.engine.room.Room;
 import endercrypt.hotline.engine.sprite.Sprite;
+import endercrypt.hotline.engine.sprite.SpriteInfo;
 import net.ddns.endercrypt.library.keyboardmanager.BindType;
 import net.ddns.endercrypt.library.keyboardmanager.KeyboardEvent;
 import net.ddns.endercrypt.library.position.Motion;
 import net.ddns.endercrypt.library.position.Position;
 
+
 public abstract class GameEntity implements Serializable
 {
 	private static final long serialVersionUID = -92455754043759309L;
-
+	
 	/**
 	 * 
 	 */
-
+	
 	private Room roomContext = null;
-
+	
 	protected Sprite sprite = null;
+	protected final SpriteInfo spriteInfo = new SpriteInfo();
 	protected int depth = 0;
-	protected double rotation = 0;
-	protected double scale_x = 1;
-	protected double scale_y = 1;
-
+	
 	protected Position position;
 	protected Motion motion;
-
+	
 	private long framesAlive = 0;
 	private Map<Long, Queue<EntityTimer>> timers = new HashMap<>();
-
+	
 	public GameEntity()
 	{
 		position = new Position(0.0, 0.0);
 		motion = new Motion(0.0, 0.0);
 	}
-
+	
 	// INIT //
-
+	
 	protected final void setRoomContext(Room room)
 	{
 		if (roomContext == room)
@@ -58,19 +58,19 @@ public abstract class GameEntity implements Serializable
 		this.roomContext = room;
 		onCreate();
 	}
-
+	
 	protected Room getRoomContext()
 	{
 		return roomContext;
 	}
-
+	
 	// METHODS //
-
+	
 	public long getFramesAlive()
 	{
 		return framesAlive;
 	}
-
+	
 	private Queue<EntityTimer> getTimerQueue(long frame)
 	{
 		Queue<EntityTimer> queue = timers.get(frame);
@@ -81,22 +81,22 @@ public abstract class GameEntity implements Serializable
 		}
 		return queue;
 	}
-
+	
 	protected void setTimer(int frames, EntityTimer entityTimer)
 	{
 		long targetFrame = framesAlive + frames;
 		getTimerQueue(targetFrame).add(entityTimer);
 	}
-
+	
 	public void destroy()
 	{
 		getRoomContext().entities().remove(this);
 	}
-
+	
 	// EVENTS //
-
+	
 	protected abstract void onCreate();
-
+	
 	public final void triggerKeyEvent(KeyboardEvent event)
 	{
 		int keyCode = event.getKeyCode();
@@ -119,25 +119,25 @@ public abstract class GameEntity implements Serializable
 			throw new RuntimeException("Unknown enum " + BindType.class.getSimpleName() + "." + event.getBindType().toString());
 		}
 	}
-
+	
 	@SuppressWarnings("unused")
 	protected void onKeyPress(int keyCode, boolean shift, boolean ctrl, boolean alt, boolean meta)
 	{
 		// ignore
 	}
-
+	
 	@SuppressWarnings("unused")
 	protected void onKeyHold(int keyCode, boolean shift, boolean ctrl, boolean alt, boolean meta)
 	{
 		// ignore
 	}
-
+	
 	@SuppressWarnings("unused")
 	protected void onKeyRelease(int keyCode, boolean shift, boolean ctrl, boolean alt, boolean meta)
 	{
 		// ignore
 	}
-
+	
 	public final void update()
 	{
 		// frames & timer //
@@ -158,34 +158,27 @@ public abstract class GameEntity implements Serializable
 			}
 			timers.remove(framesAlive);
 		}
-
+		
 		// motion & position //
 		position.add(motion);
-
+		
 		// update
 		onUpdate();
 	}
-
+	
 	public void onUpdate()
 	{
 		// ignore
 	}
-
+	
 	public void draw(Graphics2D g2d)
 	{
 		if (sprite != null)
 		{
-			rotation = rotation % 360.0;
-			Position spriteCenter = sprite.getCenter();
-
-			AffineTransform transform = new AffineTransform();
-			transform.translate(position.x - spriteCenter.x, position.y - spriteCenter.y);
-			transform.rotate(Math.toRadians(rotation), scale_x * spriteCenter.x, scale_y * spriteCenter.y);
-			transform.scale(scale_x, scale_y);
-			sprite.draw(g2d, transform);
+			sprite.draw(g2d, position, spriteInfo);
 		}
 	}
-
+	
 	@SuppressWarnings("unused")
 	public void drawHud(Graphics2D g2d)
 	{
