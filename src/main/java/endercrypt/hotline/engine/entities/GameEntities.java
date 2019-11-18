@@ -39,11 +39,7 @@ public class GameEntities implements Serializable
 	
 	public void add(GameEntity entity)
 	{
-		if (entity.getRoomContext() != null)
-		{
-			throw new IllegalArgumentException("Cannot add entity " + entity + " as its already been placed in a room");
-		}
-		entity.setRoomContext(roomContext);
+		entity.attach(roomContext);
 		getCollection(entity).add(entity);
 	}
 	
