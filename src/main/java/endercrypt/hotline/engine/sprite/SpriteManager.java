@@ -37,7 +37,7 @@ public class SpriteManager
 		images.put(file, ImageIO.read(file.toFile()));
 	}
 	
-	public static BufferedImage getSpriteContainer(Path file)
+	public static BufferedImage getImage(Path file)
 	{
 		return images.get(file);
 	}
