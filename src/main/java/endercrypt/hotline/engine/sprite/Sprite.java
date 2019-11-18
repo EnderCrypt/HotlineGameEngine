@@ -6,6 +6,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import net.ddns.endercrypt.library.position.Position;
 
@@ -17,20 +18,25 @@ public class Sprite implements Serializable
 	 * 
 	 */
 	
-	private Path file;
+	private Path path;
 	
 	private Position center = new Position(0.0, 0.0);
 	
 	private transient BufferedImage image;
 	
-	private Sprite(Path file)
+	public Sprite(String path)
 	{
-		this.file = file;
+		this(Paths.get(path));
 	}
 	
-	public Path getFile()
+	private Sprite(Path path)
 	{
-		return file;
+		this.path = path;
+	}
+	
+	public Path getPath()
+	{
+		return path;
 	}
 	
 	public void setCenter(double x, double y)
@@ -48,7 +54,7 @@ public class Sprite implements Serializable
 	{
 		if (image == null)
 		{
-			image = SpriteManager.getSpriteData(file).getImage();
+			image = SpriteManager.getSpriteData(getPath()).getImage();
 		}
 		g2d.drawImage(image, transform, null);
 	}
