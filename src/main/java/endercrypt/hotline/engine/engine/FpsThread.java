@@ -27,7 +27,7 @@ class FpsThread implements Runnable
 	{
 		double frameDelta = 1000.0 / FPS;
 		double next = System.currentTimeMillis() + frameDelta;
-		while (true)
+		while (Thread.currentThread().isInterrupted() == false)
 		{
 			// sleep
 			while (System.currentTimeMillis() <= next)

@@ -78,4 +78,10 @@ public class HotlineGameEngine
 	{
 		getRoomManager().load(file);
 	}
+	
+	public void dispose()
+	{
+		frame.dispose();
+		fpsThread.interrupt();
+	}
 }
