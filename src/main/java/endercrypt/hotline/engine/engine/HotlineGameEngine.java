@@ -57,6 +57,11 @@ public class HotlineGameEngine
 		return roomManager;
 	}
 	
+	public void setTitle(String title)
+	{
+		frame.setTitle(title);
+	}
+	
 	public void save(File file) throws FileNotFoundException, IOException
 	{
 		getRoomManager().save(file);
