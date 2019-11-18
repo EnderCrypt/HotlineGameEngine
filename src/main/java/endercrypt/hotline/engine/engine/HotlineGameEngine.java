@@ -1,5 +1,6 @@
 package endercrypt.hotline.engine.engine;
 
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -14,17 +15,18 @@ import endercrypt.hotline.engine.room.RoomManager;
 import net.ddns.endercrypt.library.keyboardmanager.KeyboardManager;
 import net.ddns.endercrypt.library.keyboardmanager.binds.AnyKey;
 
+
 public class HotlineGameEngine
 {
 	private final JPanel panel;
-	final JFrame frame;
-
+	private final JFrame frame;
+	
 	private final KeyboardManager keyboard;
-
-	final RoomManager roomManager;
-
+	
+	private final RoomManager roomManager;
+	
 	private final Thread fpsThread;
-
+	
 	@SuppressWarnings("serial")
 	public HotlineGameEngine(String title)
 	{
@@ -48,30 +50,30 @@ public class HotlineGameEngine
 		frame.setSize(new Dimension(1000, 500));
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-
+		
 		// room manager
 		roomManager = new RoomManager(frame);
-
+		
 		// keyboard listener
 		keyboard = new KeyboardManager();
 		keyboard.install(frame);
 		keyboard.getListenerGroups().global().bind(new AnyKey(), new HotlineKeyboardListener(roomManager));
-
+		
 		// fps thread
 		fpsThread = new Thread(new FpsThread(frame, roomManager, keyboard));
 		fpsThread.start();
 	}
-
+	
 	public RoomManager getRoomManager()
 	{
 		return roomManager;
 	}
-
+	
 	public void save(File file) throws FileNotFoundException, IOException
 	{
 		getRoomManager().save(file);
 	}
-
+	
 	public void load(File file) throws FileNotFoundException, ClassNotFoundException, IOException
 	{
 		getRoomManager().load(file);
