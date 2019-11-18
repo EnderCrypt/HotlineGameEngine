@@ -11,6 +11,7 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import endercrypt.hotline.engine.room.Room;
 import endercrypt.hotline.engine.room.RoomManager;
 import net.ddns.endercrypt.library.keyboardmanager.KeyboardManager;
 import net.ddns.endercrypt.library.keyboardmanager.binds.AnyKey;
@@ -27,22 +28,10 @@ public class HotlineGameEngine
 	
 	private final Thread fpsThread;
 	
-	@SuppressWarnings("serial")
 	public HotlineGameEngine(String title)
 	{
 		// frame
-		panel = new JPanel()
-		{
-			@Override
-			protected void paintComponent(Graphics g)
-			{
-				Graphics2D g2d = (Graphics2D) g;
-				if (roomManager != null)
-				{
-					roomManager.getRoom().ifPresent(r -> r.draw(g2d));
-				}
-			}
-		};
+		panel = new DrawJPanel();
 		frame = new JFrame(title);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(panel);
@@ -84,4 +73,22 @@ public class HotlineGameEngine
 		frame.dispose();
 		fpsThread.interrupt();
 	}
+	
+	@SuppressWarnings({ "unused", "serial" })
+	private class DrawJPanel extends JPanel
+	{
+		@Override
+		protected void paintComponent(Graphics g)
+		{
+			Graphics2D g2d = (Graphics2D) g;
+			if (roomManager != null)
+			{
+				Room room = roomManager.getRoom();
+				if (room != null)
+				{
+					room.draw(g2d);
+				}
+			}
+		}
+	};
 }
