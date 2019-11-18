@@ -2,13 +2,13 @@ package endercrypt.hotline.engine.room;
 
 
 import java.awt.Dimension;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Path;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -50,9 +50,9 @@ public class RoomManager
 		return Optional.ofNullable(room);
 	}
 	
-	public void save(File file) throws FileNotFoundException, IOException
+	public void save(Path path) throws FileNotFoundException, IOException
 	{
-		try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(file)))
+		try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path.toFile())))
 		{
 			save(output);
 		}
@@ -67,9 +67,9 @@ public class RoomManager
 		output.writeObject(room);
 	}
 	
-	public void load(File file) throws FileNotFoundException, IOException, ClassNotFoundException
+	public void load(Path path) throws FileNotFoundException, IOException, ClassNotFoundException
 	{
-		try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(file)))
+		try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(path.toFile())))
 		{
 			load(input);
 		}
@@ -77,6 +77,6 @@ public class RoomManager
 	
 	public void load(ObjectInputStream input) throws ClassNotFoundException, IOException
 	{
-		room = (Room) input.readObject();
+		setRoom((Room) input.readObject());
 	}
 }
