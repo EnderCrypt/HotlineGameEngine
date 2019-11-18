@@ -21,7 +21,7 @@ public class Room implements Serializable
 	
 	private GameEntities entities = new GameEntities(this);
 	
-	protected View view;
+	private View view;
 	
 	private long frameCount = 0;
 	
@@ -34,6 +34,11 @@ public class Room implements Serializable
 	{
 		this();
 		entities.add(initGameEntity);
+	}
+	
+	protected final void attach(View view)
+	{
+		this.view = view;
 	}
 	
 	public long getFrameCount()

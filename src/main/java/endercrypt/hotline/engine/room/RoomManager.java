@@ -35,10 +35,7 @@ public class RoomManager
 	
 	public void setRoom(Room room)
 	{
-		if (room.view == null)
-		{
-			room.view = new View(jFrame);
-		}
+		room.attach(new View(jFrame));
 		this.room = room;
 	}
 	
