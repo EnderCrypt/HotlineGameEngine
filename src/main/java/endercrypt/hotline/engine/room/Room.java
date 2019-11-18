@@ -93,7 +93,7 @@ public class Room implements Serializable
 		
 		// draw hud
 		g2d.setTransform(defaultTransform);
-		for (GameEntity gameEntity : entities.getAllEntities().toArray(GameEntity[]::new))
+		for (GameEntity gameEntity : entities.getAllEntitiesByDepth().toArray(GameEntity[]::new))
 		{
 			gameEntity.drawHud(g2d);
 		}
