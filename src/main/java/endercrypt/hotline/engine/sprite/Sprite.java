@@ -8,8 +8,6 @@ import java.io.Serializable;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import net.ddns.endercrypt.library.position.Position;
-
 
 public class Sprite implements Serializable
 {
@@ -19,8 +17,6 @@ public class Sprite implements Serializable
 	 */
 	
 	private Path path;
-	
-	private Position center = new Position(0.0, 0.0);
 	
 	private transient BufferedImage image;
 	
@@ -37,17 +33,6 @@ public class Sprite implements Serializable
 	public Path getPath()
 	{
 		return path;
-	}
-	
-	public void setCenter(double x, double y)
-	{
-		center.x = x;
-		center.y = y;
-	}
-	
-	public Position getCenter()
-	{
-		return center;
 	}
 	
 	public void draw(Graphics2D g2d, AffineTransform transform)
