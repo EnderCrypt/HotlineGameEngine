@@ -2,12 +2,17 @@ package endercrypt.hotline.engine.sprite;
 
 
 import java.awt.geom.AffineTransform;
+import java.io.Serializable;
 
 import net.ddns.endercrypt.library.position.Position;
 
 
-public class SpriteInfo
+public class SpriteInfo implements Serializable
 {
+	private static final long serialVersionUID = -2583721968716006419L;
+	/**
+	 * 
+	 */
 	public double rotation = 0.0;
 	public double scale_x = 1.0;
 	public double scale_y = 1.0;

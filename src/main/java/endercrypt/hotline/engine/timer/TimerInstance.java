@@ -1,11 +1,16 @@
 package endercrypt.hotline.engine.timer;
 
 
+import java.io.Serializable;
 import java.util.Objects;
 
 
-public class TimerInstance implements Comparable<TimerInstance>
+public class TimerInstance implements Comparable<TimerInstance>, Serializable
 {
+	private static final long serialVersionUID = 3314279794244268182L;
+	/**
+	 * 
+	 */
 	private long frame;
 	private EntityTimer entityTimer;
 	

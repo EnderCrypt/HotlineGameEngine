@@ -21,7 +21,7 @@ public class Room implements Serializable
 	
 	private GameEntities entities = new GameEntities(this);
 	
-	private View view;
+	private transient View view;
 	
 	private long frameCount = 0;
 	

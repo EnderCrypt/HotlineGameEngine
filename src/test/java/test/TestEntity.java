@@ -2,6 +2,8 @@ package test;
 
 
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.nio.file.Paths;
 
 import endercrypt.hotline.engine.entities.GameEntity;
 import endercrypt.hotline.engine.sprite.Sprite;
@@ -45,6 +47,26 @@ public class TestEntity extends GameEntity
 			break;
 		case KeyEvent.VK_SPACE:
 			destroy();
+			break;
+		case KeyEvent.VK_1:
+			try
+			{
+				Main.hotlineGameEngine.save(Paths.get("test.sav"));
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+			break;
+		case KeyEvent.VK_2:
+			try
+			{
+				Main.hotlineGameEngine.load(Paths.get("test.sav"));
+			}
+			catch (ClassNotFoundException | IOException e)
+			{
+				e.printStackTrace();
+			}
 			break;
 		default:
 			// ignore

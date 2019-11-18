@@ -1,5 +1,6 @@
 package endercrypt.hotline.engine.timer;
 
+@SuppressWarnings("serial")
 public class TimerException extends RuntimeException
 {
 	

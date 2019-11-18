@@ -4,9 +4,9 @@ package endercrypt.hotline.engine.engine;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -64,14 +64,14 @@ public class HotlineGameEngine
 	}
 	
 	// save & load
-	public void save(File file) throws FileNotFoundException, IOException
+	public void save(Path path) throws FileNotFoundException, IOException
 	{
-		getRoomManager().save(file);
+		getRoomManager().save(path);
 	}
 	
-	public void load(File file) throws FileNotFoundException, ClassNotFoundException, IOException
+	public void load(Path path) throws FileNotFoundException, ClassNotFoundException, IOException
 	{
-		getRoomManager().load(file);
+		getRoomManager().load(path);
 	}
 	
 	// close
