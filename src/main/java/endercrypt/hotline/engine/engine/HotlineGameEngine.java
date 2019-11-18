@@ -11,7 +11,6 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import endercrypt.hotline.engine.room.Room;
 import endercrypt.hotline.engine.room.RoomManager;
 import net.ddns.endercrypt.library.keyboardmanager.KeyboardManager;
 import net.ddns.endercrypt.library.keyboardmanager.binds.AnyKey;
@@ -83,11 +82,7 @@ public class HotlineGameEngine
 			Graphics2D g2d = (Graphics2D) g;
 			if (roomManager != null)
 			{
-				Room room = roomManager.getRoom();
-				if (room != null)
-				{
-					room.draw(g2d);
-				}
+				roomManager.getRoom().ifPresent(r -> r.draw(g2d));
 			}
 		}
 	};

@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Optional;
 
 import javax.swing.JFrame;
 
@@ -44,13 +45,9 @@ public class RoomManager
 		return (room != null);
 	}
 	
-	public Room getRoom()
+	public Optional<Room> getRoom()
 	{
-		if (hasRoom() == false)
-		{
-			throw new RoomException("no room present");
-		}
-		return room;
+		return Optional.ofNullable(room);
 	}
 	
 	public void save(File file) throws FileNotFoundException, IOException
