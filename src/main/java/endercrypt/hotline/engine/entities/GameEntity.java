@@ -26,6 +26,7 @@ public abstract class GameEntity implements Serializable
 	 */
 	
 	private Room room = null;
+	private EntityState entityState = EntityState.UNATTACHED;
 	
 	protected Sprite sprite = null;
 	protected final SpriteInfo spriteInfo = new SpriteInfo();
@@ -47,16 +48,29 @@ public abstract class GameEntity implements Serializable
 	
 	protected final void attach(Room room)
 	{
-		if (this.room == room)
+		if (entityState == EntityState.DEAD)
 		{
-			throw new EntityAlreadyUsedException("The entity " + this + " is already attached to this room");
+			throw new EntityException("The entity " + this + " is dead");
 		}
-		if (this.room != null)
+		if (entityState == EntityState.ALIVE)
 		{
-			throw new EntityAlreadyUsedException("The entity " + this + " is already attached to room " + this.room);
+			if (this.room == room)
+			{
+				throw new EntityException("The entity " + this + " is already attached to this room");
+			}
+			else
+			{
+				throw new EntityException("The entity " + this + " is already attached to room " + this.room);
+			}
 		}
+		entityState = EntityState.ALIVE;
 		this.room = room;
 		onCreate();
+	}
+	
+	public EntityState getEntityState()
+	{
+		return entityState;
 	}
 	
 	public Room getRoom()
@@ -91,6 +105,8 @@ public abstract class GameEntity implements Serializable
 	public void destroy()
 	{
 		getRoom().entities().remove(this);
+		room = null;
+		entityState = EntityState.DEAD;
 	}
 	
 	// EVENTS //
