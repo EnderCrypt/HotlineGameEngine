@@ -82,7 +82,7 @@ public class HotlineGameEngine
 	}
 	
 	// jpanel override
-	@SuppressWarnings({ "unused", "serial" })
+	@SuppressWarnings({ "serial" })
 	private class DrawJPanel extends JPanel
 	{
 		@Override
