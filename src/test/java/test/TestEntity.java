@@ -31,16 +31,16 @@ public class TestEntity extends GameEntity
 	{
 		switch (keyCode)
 		{
-		case KeyEvent.VK_UP:
+		case KeyEvent.VK_W:
 			motion.y -= SPEED;
 			break;
-		case KeyEvent.VK_DOWN:
+		case KeyEvent.VK_S:
 			motion.y += SPEED;
 			break;
-		case KeyEvent.VK_LEFT:
+		case KeyEvent.VK_A:
 			motion.x -= SPEED;
 			break;
-		case KeyEvent.VK_RIGHT:
+		case KeyEvent.VK_D:
 			motion.x += SPEED;
 			break;
 		case KeyEvent.VK_SPACE:
