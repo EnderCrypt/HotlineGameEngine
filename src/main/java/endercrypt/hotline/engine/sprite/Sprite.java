@@ -1,14 +1,17 @@
 package endercrypt.hotline.engine.sprite;
 
+
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.Serializable;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
 import net.ddns.endercrypt.library.position.Position;
+
 
 public class Sprite implements Serializable
 {
@@ -16,15 +19,15 @@ public class Sprite implements Serializable
 	/**
 	 * 
 	 */
-
-	private static Map<File, Sprite> sprites = new HashMap<>();
-
+	
+	private static Map<Path, Sprite> sprites = new HashMap<>();
+	
 	public static Sprite get(String file)
 	{
-		return get(new File(file));
+		return get(Paths.get(file));
 	}
-
-	public static Sprite get(File file)
+	
+	public static Sprite get(Path file)
 	{
 		Sprite sprite = sprites.get(file);
 		if (sprite == null)
@@ -38,34 +41,34 @@ public class Sprite implements Serializable
 		}
 		return sprite;
 	}
-
-	private File file;
-
+	
+	private Path file;
+	
 	private Position center = new Position(0.0, 0.0);
-
+	
 	private transient BufferedImage image;
-
-	private Sprite(File file)
+	
+	private Sprite(Path file)
 	{
 		this.file = file;
 	}
-
-	public File getFile()
+	
+	public Path getFile()
 	{
 		return file;
 	}
-
+	
 	public void setCenter(double x, double y)
 	{
 		center.x = x;
 		center.y = y;
 	}
-
+	
 	public Position getCenter()
 	{
 		return center;
 	}
-
+	
 	public void draw(Graphics2D g2d, AffineTransform transform)
 	{
 		if (image == null)
@@ -77,5 +80,5 @@ public class Sprite implements Serializable
 			g2d.drawImage(image, transform, null);
 		}
 	}
-
+	
 }
