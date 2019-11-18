@@ -8,7 +8,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Optional;
 
 import javax.swing.JFrame;
 
@@ -43,14 +42,18 @@ public class RoomManager
 		this.room = room;
 	}
 	
-	public Optional<Room> getRoom()
-	{
-		return Optional.ofNullable(room);
-	}
-	
 	public boolean hasRoom()
 	{
 		return (room != null);
+	}
+	
+	public Room getRoom()
+	{
+		if (hasRoom() == false)
+		{
+			throw new RoomException("no room present");
+		}
+		return room;
 	}
 	
 	public void save(File file) throws FileNotFoundException, IOException
@@ -65,7 +68,7 @@ public class RoomManager
 	{
 		if (room == null)
 		{
-			throw new NoRoomPresentException("cant save the game whitout a room present");
+			throw new RoomException("cant save the game whitout a room present");
 		}
 		output.writeObject(room);
 	}

@@ -1,33 +1,33 @@
 package endercrypt.hotline.engine.room;
 
 @SuppressWarnings("serial")
-public class NoRoomPresentException extends RuntimeException
+public class RoomException extends RuntimeException
 {
 
-	public NoRoomPresentException()
+	public RoomException()
 	{
 		// TODO Auto-generated constructor stub
 	}
 
-	public NoRoomPresentException(String message)
+	public RoomException(String message)
 	{
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
 
-	public NoRoomPresentException(Throwable cause)
+	public RoomException(Throwable cause)
 	{
 		super(cause);
 		// TODO Auto-generated constructor stub
 	}
 
-	public NoRoomPresentException(String message, Throwable cause)
+	public RoomException(String message, Throwable cause)
 	{
 		super(message, cause);
 		// TODO Auto-generated constructor stub
 	}
 
-	public NoRoomPresentException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)
+	public RoomException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)
 	{
 		super(message, cause, enableSuppression, writableStackTrace);
 		// TODO Auto-generated constructor stub
