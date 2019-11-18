@@ -48,6 +48,9 @@ public class TestEntity extends GameEntity
 		case KeyEvent.VK_SPACE:
 			destroy();
 			break;
+		case KeyEvent.VK_K:
+			spriteInfo.scale_y *= 1.1;
+			break;
 		case KeyEvent.VK_1:
 			try
 			{

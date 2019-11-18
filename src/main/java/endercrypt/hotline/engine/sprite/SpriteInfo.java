@@ -27,7 +27,7 @@ public class SpriteInfo implements Serializable
 		
 		// transform
 		AffineTransform transform = new AffineTransform();
-		transform.translate(position.x - center.x, position.y - center.y);
+		transform.translate(position.x - (center.x * scale_x), position.y - (center.y * scale_y));
 		transform.rotate(Math.toRadians(rotation), scale_x * center.x, scale_y * center.y);
 		transform.scale(scale_x, scale_y);
 		return transform;
