@@ -17,7 +17,7 @@ public class SpriteInfo implements Serializable
 	public double scale_x = 1.0;
 	public double scale_y = 1.0;
 	
-	protected AffineTransform generateTransform(Position position, SpriteInfo spriteInfo, SpriteData spriteData)
+	protected AffineTransform generateTransform(Position position, SpriteData spriteData)
 	{
 		// clean
 		rotation = rotation % 360.0;

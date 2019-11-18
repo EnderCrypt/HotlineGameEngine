@@ -4,7 +4,6 @@ package endercrypt.hotline.engine.sprite;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.io.Serializable;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -42,7 +41,7 @@ public class Sprite implements Serializable
 		}
 		
 		// transform
-		AffineTransform transform = spriteInfo.generateTransform(position, spriteInfo, spriteData);
+		AffineTransform transform = spriteInfo.generateTransform(position, spriteData);
 		
 		// draw
 		g2d.drawImage(spriteData.getImage(), transform, null);
