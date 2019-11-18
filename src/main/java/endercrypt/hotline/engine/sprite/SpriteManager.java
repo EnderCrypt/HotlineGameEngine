@@ -54,6 +54,11 @@ public class SpriteManager
 	
 	public static BufferedImage getImage(Path file)
 	{
-		return images.get(file);
+		BufferedImage image = images.get(file);
+		if (image == null)
+		{
+			throw new SpriteException("Sprite not registered");
+		}
+		return image;
 	}
 }

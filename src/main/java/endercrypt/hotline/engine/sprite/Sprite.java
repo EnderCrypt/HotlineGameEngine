@@ -6,9 +6,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
 
 import net.ddns.endercrypt.library.position.Position;
 
@@ -19,28 +16,6 @@ public class Sprite implements Serializable
 	/**
 	 * 
 	 */
-	
-	private static Map<Path, Sprite> sprites = new HashMap<>();
-	
-	public static Sprite get(String file)
-	{
-		return get(Paths.get(file));
-	}
-	
-	public static Sprite get(Path file)
-	{
-		Sprite sprite = sprites.get(file);
-		if (sprite == null)
-		{
-			if (SpriteManager.validFiles.contains(file) == false)
-			{
-				throw new SpriteNotLoadedException("the file " + file + " has not been loaded");
-			}
-			sprite = new Sprite(file);
-			sprites.put(file, sprite);
-		}
-		return sprite;
-	}
 	
 	private Path file;
 	
@@ -75,10 +50,7 @@ public class Sprite implements Serializable
 		{
 			image = SpriteManager.getImage(file);
 		}
-		else
-		{
-			g2d.drawImage(image, transform, null);
-		}
+		g2d.drawImage(image, transform, null);
 	}
 	
 }
