@@ -172,6 +172,11 @@ public abstract class GameEntity implements Serializable
 	
 	public void draw(Graphics2D g2d)
 	{
+		drawSelf(g2d);
+	}
+	
+	protected void drawSelf(Graphics2D g2d)
+	{
 		if (sprite != null)
 		{
 			sprite.draw(g2d, position, spriteInfo);
