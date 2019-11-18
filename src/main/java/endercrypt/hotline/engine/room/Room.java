@@ -67,10 +67,13 @@ public class Room implements Serializable
 	public void update()
 	{
 		frameCount++;
+		// update entities
 		for (GameEntity gameEntity : entities.getAllEntities().toArray(GameEntity[]::new))
 		{
 			gameEntity.update();
 		}
+		// update view
+		view.update();
 	}
 	
 	public void draw(Graphics2D g2d)
