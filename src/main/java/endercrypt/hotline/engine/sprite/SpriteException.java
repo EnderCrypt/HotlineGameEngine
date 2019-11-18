@@ -1,33 +1,33 @@
 package endercrypt.hotline.engine.sprite;
 
 @SuppressWarnings("serial")
-public class SpriteNotLoadedException extends RuntimeException
+public class SpriteException extends RuntimeException
 {
 
-	public SpriteNotLoadedException()
+	public SpriteException()
 	{
 		// TODO Auto-generated constructor stub
 	}
 
-	public SpriteNotLoadedException(String message)
+	public SpriteException(String message)
 	{
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
 
-	public SpriteNotLoadedException(Throwable cause)
+	public SpriteException(Throwable cause)
 	{
 		super(cause);
 		// TODO Auto-generated constructor stub
 	}
 
-	public SpriteNotLoadedException(String message, Throwable cause)
+	public SpriteException(String message, Throwable cause)
 	{
 		super(message, cause);
 		// TODO Auto-generated constructor stub
 	}
 
-	public SpriteNotLoadedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)
+	public SpriteException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)
 	{
 		super(message, cause, enableSuppression, writableStackTrace);
 		// TODO Auto-generated constructor stub
