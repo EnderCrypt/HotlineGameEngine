@@ -1,5 +1,6 @@
 package endercrypt.hotline.engine.entities;
 
+
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
@@ -16,25 +17,26 @@ import java.util.stream.Stream;
 
 import endercrypt.hotline.engine.room.Room;
 
+
 public class GameEntities implements Serializable
 {
 	private static final long serialVersionUID = -4603230297232749703L;
-
+	
 	/**
 	 * 
 	 */
-
+	
 	private Map<Class<? extends GameEntity>, Set<? extends GameEntity>> entities = new HashMap<>();
-
+	
 	private Room roomContext;
-
+	
 	public GameEntities(Room roomContext)
 	{
 		this.roomContext = roomContext;
 	}
-
+	
 	// ADD //
-
+	
 	public void add(GameEntity entity)
 	{
 		if (entity.getRoomContext() != null)
@@ -44,29 +46,29 @@ public class GameEntities implements Serializable
 		entity.setRoomContext(roomContext);
 		getCollection(entity).add(entity);
 	}
-
+	
 	public void addAll(GameEntity... entitiesArray)
 	{
 		Arrays.stream(entitiesArray).forEach(this::add);
 	}
-
+	
 	public void addAll(Collection<GameEntity> entitiesCollection)
 	{
 		entitiesCollection.stream().forEach(this::add);
 	}
-
+	
 	// GET //
-
+	
 	public <T extends GameEntity> Optional<T> getEntity(Class<T> entityClass)
 	{
 		return getCollection(entityClass).stream().findAny();
 	}
-
+	
 	public <T extends GameEntity> Set<T> getEntitiesOf(Class<T> entityClass)
 	{
 		return Collections.unmodifiableSet(getCollection(entityClass));
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	public <T extends GameEntity> List<? extends T> getEntitiesOfSubtype(Class<T> entityClass)
 	{
@@ -75,13 +77,13 @@ public class GameEntities implements Serializable
 		List<? extends T> result = (List<? extends T>) classes.stream().flatMap(c -> getCollection(c).stream()).collect(Collectors.toList());
 		return Collections.unmodifiableList(result);
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	public Stream<GameEntity> getAllEntities()
 	{
 		return (Stream<GameEntity>) entities.values().stream().flatMap(e -> e.stream());
 	}
-
+	
 	public Stream<GameEntity> getAllEntitiesByDepth()
 	{
 		return getAllEntities().sorted(new Comparator<GameEntity>()
@@ -93,35 +95,35 @@ public class GameEntities implements Serializable
 			}
 		});
 	}
-
+	
 	// COUNT //
-
+	
 	public int countEntities()
 	{
 		return entities.values().stream().mapToInt(e -> e.size()).sum();
 	}
-
+	
 	public int countEntities(Class<? extends GameEntity> entityClass)
 	{
 		return getCollection(entityClass).size();
 	}
-
+	
 	// REMOVE //
-
+	
 	public boolean remove(GameEntity entity)
 	{
-		if (entity.getRoomContext() == null)
+		if (entity.getRoom() == null)
 		{
 			throw new IllegalArgumentException("Cannot remove entity " + entity + " as its currently not in a room");
 		}
 		return getCollection(entity).remove(entity);
 	}
-
+	
 	public void clear(Class<? extends GameEntity> entityClass)
 	{
 		getCollection(entityClass).forEach(this::remove);
 	}
-
+	
 	public void clearAll()
 	{
 		for (Class<? extends GameEntity> entityClass : entities.keySet())
@@ -129,22 +131,22 @@ public class GameEntities implements Serializable
 			clear(entityClass);
 		}
 	}
-
+	
 	// MISC //
-
+	
 	public boolean contains(GameEntity entity)
 	{
 		return getCollection(entity).contains(entity);
 	}
-
+	
 	// COLLECTION //
-
+	
 	@SuppressWarnings("unchecked")
 	private <T extends GameEntity> Set<T> getCollection(T entity)
 	{
 		return (Set<T>) getCollection(entity.getClass());
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	private <T extends GameEntity> Set<T> getCollection(Class<T> entityClass)
 	{

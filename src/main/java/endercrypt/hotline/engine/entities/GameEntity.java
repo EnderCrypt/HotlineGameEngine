@@ -25,7 +25,7 @@ public abstract class GameEntity implements Serializable
 	 * 
 	 */
 	
-	private Room roomContext = null;
+	private Room room = null;
 	
 	protected Sprite sprite = null;
 	protected final SpriteInfo spriteInfo = new SpriteInfo();
@@ -45,23 +45,23 @@ public abstract class GameEntity implements Serializable
 	
 	// INIT //
 	
-	protected final void setRoomContext(Room room)
+	protected final void attach(Room room)
 	{
-		if (roomContext == room)
+		if (this.room == room)
 		{
-			throw new EntityAlreadyUsedException("The entity " + this + " already is (or has been) in this room");
+			throw new EntityAlreadyUsedException("The entity " + this + " is already attached to this room");
 		}
-		if (roomContext != null)
+		if (this.room != null)
 		{
-			throw new EntityAlreadyUsedException("The entity " + this + " already exists in " + roomContext);
+			throw new EntityAlreadyUsedException("The entity " + this + " is already attached to room " + this.room);
 		}
-		this.roomContext = room;
+		this.room = room;
 		onCreate();
 	}
 	
-	protected Room getRoomContext()
+	public Room getRoom()
 	{
-		return roomContext;
+		return room;
 	}
 	
 	// METHODS //
@@ -90,7 +90,7 @@ public abstract class GameEntity implements Serializable
 	
 	public void destroy()
 	{
-		getRoomContext().entities().remove(this);
+		getRoom().entities().remove(this);
 	}
 	
 	// EVENTS //
