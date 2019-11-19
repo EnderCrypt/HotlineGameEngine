@@ -29,8 +29,8 @@ public class RoomManager
 	public Room startRoom(GameEntity initEntity)
 	{
 		Room newRoom = new Room();
-		newRoom.entities().add(initEntity);
 		setRoom(newRoom);
+		newRoom.entities().add(initEntity);
 		return newRoom;
 	}
 	
