@@ -4,8 +4,6 @@ package endercrypt.hotline.engine.sprite;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.io.Serializable;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import net.ddns.endercrypt.library.position.Position;
 
@@ -17,19 +15,19 @@ public class Sprite implements Serializable
 	 * 
 	 */
 	
-	private String file;
+	private String path;
 	
 	private transient SpriteData spriteData;
 	
-	public Sprite(String file)
+	public Sprite(String path)
 	{
-		SpriteManager.getSpriteData(Paths.get(file));
-		this.file = file;
+		this.path = path;
+		SpriteManager.getSpriteData(path);
 	}
 	
-	public Path getPath()
+	public String getPath()
 	{
-		return Paths.get(file);
+		return path;
 	}
 	
 	public void draw(Graphics2D g2d, Position position, SpriteInfo spriteInfo)

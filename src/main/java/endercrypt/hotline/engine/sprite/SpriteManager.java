@@ -4,7 +4,6 @@ package endercrypt.hotline.engine.sprite;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,16 +11,11 @@ import java.util.Map;
 
 public class SpriteManager
 {
-	private static Map<Path, SpriteData> sprites = new HashMap<>();
+	private static Map<String, SpriteData> sprites = new HashMap<>();
 	
-	public static SpriteData registerImage(String path) throws SpriteException, IOException
+	public static synchronized SpriteData registerImage(String path) throws SpriteException, IOException
 	{
-		return registerImage(Paths.get(path));
-	}
-	
-	public static synchronized SpriteData registerImage(Path path) throws SpriteException, IOException
-	{
-		if (Files.exists(path) == false)
+		if (Files.exists(Paths.get(path)) == false)
 		{
 			throw new FileNotFoundException("sprite " + path + " not found");
 		}
@@ -36,9 +30,9 @@ public class SpriteManager
 		return spriteData;
 	}
 	
-	public static SpriteData getSpriteData(Path file)
+	public static SpriteData getSpriteData(String path)
 	{
-		SpriteData image = sprites.get(file);
+		SpriteData image = sprites.get(path);
 		if (image == null)
 		{
 			throw new SpriteException("Sprite not registered");

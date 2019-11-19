@@ -7,8 +7,8 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 
 import javax.imageio.ImageIO;
 
@@ -21,16 +21,16 @@ public class SpriteData
 	private static GraphicsDevice graphicsDevice = graphicsEnvironment.getDefaultScreenDevice();
 	private static GraphicsConfiguration graphicsConfiguration = graphicsDevice.getDefaultConfiguration();
 	
-	private final Path path;
+	private final String path;
 	private final BufferedImage image;
 	
 	private Position center = new Position(0, 0);
 	
-	public SpriteData(Path path) throws IOException
+	public SpriteData(String path) throws IOException
 	{
 		this.path = path;
 		
-		BufferedImage defaultImage = ImageIO.read(path.toFile());
+		BufferedImage defaultImage = ImageIO.read(new File(path));
 		BufferedImage compatibleImage = graphicsConfiguration.createCompatibleImage(defaultImage.getWidth(), defaultImage.getHeight(), Transparency.TRANSLUCENT);
 		Graphics2D g2d = compatibleImage.createGraphics();
 		g2d.drawImage(defaultImage, 0, 0, null);
@@ -39,7 +39,7 @@ public class SpriteData
 		image = compatibleImage;
 	}
 	
-	public Path getPath()
+	public String getPath()
 	{
 		return path;
 	}
