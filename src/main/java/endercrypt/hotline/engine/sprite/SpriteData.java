@@ -24,19 +24,19 @@ public class SpriteData
 	private final String path;
 	private final BufferedImage image;
 	
-	private Position center = new Position(0, 0);
+	private Position origin = new Position(0, 0);
 	
 	public SpriteData(String path) throws IOException
 	{
 		this.path = path;
 		
-		BufferedImage defaultImage = ImageIO.read(new File(path));
-		BufferedImage compatibleImage = graphicsConfiguration.createCompatibleImage(defaultImage.getWidth(), defaultImage.getHeight(), Transparency.TRANSLUCENT);
-		Graphics2D g2d = compatibleImage.createGraphics();
-		g2d.drawImage(defaultImage, 0, 0, null);
+		BufferedImage rawImage = ImageIO.read(new File(path));
+		image = graphicsConfiguration.createCompatibleImage(rawImage.getWidth(), rawImage.getHeight(), Transparency.TRANSLUCENT);
+		Graphics2D g2d = image.createGraphics();
+		g2d.drawImage(rawImage, 0, 0, null);
 		g2d.dispose();
 		
-		image = compatibleImage;
+		setOriginCentered();
 	}
 	
 	public String getPath()
@@ -49,18 +49,23 @@ public class SpriteData
 		return image;
 	}
 	
-	public void setCenter(double x, double y)
+	public void setOriginCentered()
 	{
-		setCenter(new Position(x, y));
+		setOrigin(image.getWidth() / 2.0, image.getHeight() / 2.0);
 	}
 	
-	public void setCenter(Position center)
+	public void setOrigin(double x, double y)
 	{
-		this.center = center;
+		setOrigin(new Position(x, y));
 	}
 	
-	public Position getCenter()
+	public void setOrigin(Position origin)
 	{
-		return center;
+		this.origin = origin;
+	}
+	
+	public Position getOrigin()
+	{
+		return origin;
 	}
 }

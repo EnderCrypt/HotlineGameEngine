@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 import endercrypt.hotline.engine.room.Room;
 
 
-public class GameEntities implements Serializable
+public class EntityManager implements Serializable
 {
 	private static final long serialVersionUID = -4603230297232749703L;
 	
@@ -28,18 +28,18 @@ public class GameEntities implements Serializable
 	
 	private Map<Class<? extends GameEntity>, Set<? extends GameEntity>> entities = new HashMap<>();
 	
-	private Room roomContext;
+	private Room room;
 	
-	public GameEntities(Room roomContext)
+	public EntityManager(Room room)
 	{
-		this.roomContext = roomContext;
+		this.room = room;
 	}
 	
 	// ADD //
 	
 	public void add(GameEntity entity)
 	{
-		entity.attach(roomContext);
+		entity.attach(room);
 		getCollection(entity).add(entity);
 	}
 	

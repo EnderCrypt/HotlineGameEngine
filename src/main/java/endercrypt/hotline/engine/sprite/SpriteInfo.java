@@ -4,6 +4,7 @@ package endercrypt.hotline.engine.sprite;
 import java.awt.geom.AffineTransform;
 import java.io.Serializable;
 
+import endercrypt.hotline.engine.graphics.AffineTransformBuilder;
 import net.ddns.endercrypt.library.position.Position;
 
 
@@ -23,13 +24,14 @@ public class SpriteInfo implements Serializable
 		rotation = rotation % 360.0;
 		
 		// variables
-		Position center = spriteData.getCenter();
+		Position origin = spriteData.getOrigin();
 		
 		// transform
-		AffineTransform transform = new AffineTransform();
-		transform.translate(position.x - (center.x * scale_x), position.y - (center.y * scale_y));
-		transform.rotate(Math.toRadians(rotation), scale_x * center.x, scale_y * center.y);
-		transform.scale(scale_x, scale_y);
-		return transform;
+		return new AffineTransformBuilder()
+			.setOrigin(origin.x, origin.y)
+			.setPosition(position.x, position.y)
+			.setScale(scale_x, scale_y)
+			.setRotationDegrees(rotation)
+			.build();
 	}
 }

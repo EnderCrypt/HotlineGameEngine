@@ -1,7 +1,6 @@
 package endercrypt.hotline.engine.room;
 
 
-import java.awt.Dimension;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -10,33 +9,33 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Path;
 import java.util.Optional;
-import java.util.function.Supplier;
 
+import endercrypt.hotline.engine.core.HotlineGameEngine;
 import endercrypt.hotline.engine.entities.GameEntity;
 
 
 public class RoomManager
 {
+	private final HotlineGameEngine hotline;
+	
 	private Room room = null;
 	
-	private Supplier<Dimension> screenDimensionSupplier;
-	
-	public RoomManager(Supplier<Dimension> screenDimensionSupplier)
+	public RoomManager(HotlineGameEngine hotline)
 	{
-		this.screenDimensionSupplier = screenDimensionSupplier;
+		this.hotline = hotline;
 	}
 	
 	public Room startRoom(GameEntity initEntity)
 	{
 		Room newRoom = new Room();
 		setRoom(newRoom);
-		newRoom.entities().add(initEntity);
+		newRoom.getEntities().add(initEntity);
 		return newRoom;
 	}
 	
 	public void setRoom(Room room)
 	{
-		room.attach(new View(screenDimensionSupplier));
+		room.attach(hotline, new View());
 		this.room = room;
 	}
 	
@@ -52,31 +51,26 @@ public class RoomManager
 	
 	public void save(Path path) throws FileNotFoundException, IOException
 	{
-		try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path.toFile())))
-		{
-			save(output);
-		}
-	}
-	
-	public void save(ObjectOutputStream output) throws IOException
-	{
 		if (room == null)
 		{
 			throw new RoomException("cant save the game whitout a room present");
 		}
-		output.writeObject(room);
+		try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path.toFile())))
+		{
+			output.writeObject(room);
+		}
 	}
 	
 	public void load(Path path) throws FileNotFoundException, IOException, ClassNotFoundException
 	{
-		try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(path.toFile())))
-		{
-			load(input);
-		}
+		setRoom(readRoom(path));
 	}
 	
-	public void load(ObjectInputStream input) throws ClassNotFoundException, IOException
+	private Room readRoom(Path path) throws FileNotFoundException, IOException, ClassNotFoundException
 	{
-		setRoom((Room) input.readObject());
+		try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(path.toFile())))
+		{
+			return (Room) input.readObject();
+		}
 	}
 }

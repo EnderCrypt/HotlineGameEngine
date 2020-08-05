@@ -1,4 +1,4 @@
-package endercrypt.hotline.engine.engine;
+package endercrypt.hotline.engine.core;
 
 import endercrypt.hotline.engine.room.RoomManager;
 import net.ddns.endercrypt.library.keyboardmanager.KeyboardEvent;

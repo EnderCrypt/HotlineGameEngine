@@ -1,9 +1,10 @@
 package endercrypt.hotline.engine.entities;
 
 
-import java.awt.Graphics2D;
 import java.io.Serializable;
 
+import endercrypt.hotline.engine.core.HotlineGameEngine;
+import endercrypt.hotline.engine.graphics.HotlineGraphics;
 import endercrypt.hotline.engine.room.Room;
 import endercrypt.hotline.engine.sprite.Sprite;
 import endercrypt.hotline.engine.sprite.SpriteInfo;
@@ -33,13 +34,12 @@ public abstract class GameEntity implements Serializable
 	protected final SpriteInfo spriteInfo = new SpriteInfo();
 	protected int depth = 0;
 	
-	protected final Position position;
-	protected final Motion motion;
+	protected final Position position = new Position(0.0, 0.0);
+	protected final Motion motion = new Motion(0.0, 0.0);
 	
 	public GameEntity()
 	{
-		position = new Position(0.0, 0.0);
-		motion = new Motion(0.0, 0.0);
+		
 	}
 	
 	// INIT //
@@ -76,6 +76,11 @@ public abstract class GameEntity implements Serializable
 		return room;
 	}
 	
+	public HotlineGameEngine getHotline()
+	{
+		return getRoom().getHotline();
+	}
+	
 	// METHODS //
 	
 	public long getFramesAlive()
@@ -99,7 +104,7 @@ public abstract class GameEntity implements Serializable
 		{
 			throw new EntityException("cant remove an entity thats " + entityState);
 		}
-		getRoom().entities().remove(this);
+		getRoom().getEntities().remove(this);
 		room = null;
 		entityState = EntityState.DEAD;
 	}
@@ -119,13 +124,13 @@ public abstract class GameEntity implements Serializable
 		{
 		case PRESS:
 			onKeyPress(keyCode, shift, ctrl, alt, meta);
-			break;
+		break;
 		case HOLD:
 			onKeyHold(keyCode, shift, ctrl, alt, meta);
-			break;
+		break;
 		case RELEASE:
 			onKeyRelease(keyCode, shift, ctrl, alt, meta);
-			break;
+		break;
 		default:
 			throw new RuntimeException("Unknown enum " + BindType.class.getSimpleName() + "." + event.getBindType().toString());
 		}
@@ -167,25 +172,25 @@ public abstract class GameEntity implements Serializable
 	
 	public void onUpdate()
 	{
-		// ignore
+		// do nothing
 	}
 	
-	public void draw(Graphics2D g2d)
+	public void draw(HotlineGraphics graphics)
 	{
-		drawSelf(g2d);
+		drawSelf(graphics);
 	}
 	
-	protected void drawSelf(Graphics2D g2d)
+	protected void drawSelf(HotlineGraphics graphics)
 	{
 		if (sprite != null)
 		{
-			sprite.draw(g2d, position, spriteInfo);
+			sprite.draw(graphics, position, spriteInfo);
 		}
 	}
 	
 	@SuppressWarnings("unused")
-	public void drawHud(Graphics2D g2d)
+	public void drawHud(HotlineGraphics graphics)
 	{
-		// ignore
+		// do nothing
 	}
 }

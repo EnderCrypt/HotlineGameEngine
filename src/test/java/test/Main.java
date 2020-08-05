@@ -3,21 +3,23 @@ package test;
 
 import java.io.IOException;
 
-import endercrypt.hotline.engine.engine.HotlineGameEngine;
+import endercrypt.hotline.engine.core.HotlineGameEngine;
 import endercrypt.hotline.engine.sprite.SpriteException;
 import endercrypt.hotline.engine.sprite.SpriteManager;
 
 
 public class Main
 {
-	public static HotlineGameEngine hotlineGameEngine;
+	public static HotlineGameEngine hotline;
 	
 	public static void main(String[] args) throws SpriteException, IOException
 	{
-		SpriteManager.registerImage("res/bomb.png").setCenter(128, 128);
-		SpriteManager.registerImage("res/science.png").setCenter(16, 16);
+		hotline = new HotlineGameEngine();
+		hotline.getWindow().setTitle("Test game");
 		
-		hotlineGameEngine = new HotlineGameEngine("Game test");
-		hotlineGameEngine.getRoomManager().startRoom(new TestEntity());
+		SpriteManager.registerImage("res/bomb.png");
+		SpriteManager.registerImage("res/science.png");
+		
+		hotline.getRoomManager().startRoom(new TestEntity());
 	}
 }

@@ -17,7 +17,7 @@ public class TestEntity extends GameEntity
 	 * 
 	 */
 	
-	private static final double SPEED = 1.0;
+	private static final double SPEED = 1.2;
 	
 	@Override
 	protected void onCreate()
@@ -35,45 +35,45 @@ public class TestEntity extends GameEntity
 		{
 		case KeyEvent.VK_W:
 			motion.y -= SPEED;
-			break;
+		break;
 		case KeyEvent.VK_S:
 			motion.y += SPEED;
-			break;
+		break;
 		case KeyEvent.VK_A:
 			motion.x -= SPEED;
-			break;
+		break;
 		case KeyEvent.VK_D:
 			motion.x += SPEED;
-			break;
+		break;
 		case KeyEvent.VK_SPACE:
 			destroy();
-			break;
+		break;
 		case KeyEvent.VK_K:
 			spriteInfo.scale_y *= 1.1;
-			break;
+		break;
 		case KeyEvent.VK_1:
 			try
 			{
-				Main.hotlineGameEngine.save(Paths.get("test.sav"));
+				getHotline().save(Paths.get("test.sav"));
 			}
 			catch (IOException e)
 			{
 				e.printStackTrace();
 			}
-			break;
+		break;
 		case KeyEvent.VK_2:
 			try
 			{
-				Main.hotlineGameEngine.load(Paths.get("test.sav"));
+				getHotline().load(Paths.get("test.sav"));
 			}
 			catch (ClassNotFoundException | IOException e)
 			{
 				e.printStackTrace();
 			}
-			break;
+		break;
 		default:
-			// ignore
-			break;
+		// ignore
+		break;
 		}
 	}
 	

@@ -1,10 +1,10 @@
 package endercrypt.hotline.engine.sprite;
 
 
-import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.io.Serializable;
 
+import endercrypt.hotline.engine.graphics.HotlineGraphics;
 import net.ddns.endercrypt.library.position.Position;
 
 
@@ -15,14 +15,23 @@ public class Sprite implements Serializable
 	 * 
 	 */
 	
-	private String path;
+	private final String path;
 	
 	private transient SpriteData spriteData;
 	
 	public Sprite(String path)
 	{
 		this.path = path;
-		SpriteManager.getSpriteData(path);
+	}
+	
+	private boolean restoreSprite()
+	{
+		if (spriteData != null)
+		{
+			return false;
+		}
+		spriteData = SpriteManager.getSpriteData(getPath());
+		return true;
 	}
 	
 	public String getPath()
@@ -30,19 +39,15 @@ public class Sprite implements Serializable
 		return path;
 	}
 	
-	public void draw(Graphics2D g2d, Position position, SpriteInfo spriteInfo)
+	public void draw(HotlineGraphics graphics, Position position, SpriteInfo spriteInfo)
 	{
 		// sprite data
-		if (spriteData == null)
-		{
-			spriteData = SpriteManager.getSpriteData(getPath());
-		}
+		restoreSprite();
 		
 		// transform
 		AffineTransform transform = spriteInfo.generateTransform(position, spriteData);
 		
 		// draw
-		g2d.drawImage(spriteData.getImage(), transform, null);
+		graphics.drawImage(spriteData.getImage(), transform);
 	}
-	
 }

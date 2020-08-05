@@ -3,14 +3,20 @@ package endercrypt.hotline.engine.timer;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class TimerInstance implements Comparable<TimerInstance>, Serializable
 {
 	private static final long serialVersionUID = 3314279794244268182L;
+	
 	/**
 	 * 
 	 */
+	
+	private static ExecutorService executor = Executors.newCachedThreadPool();
+	
 	private long frame;
 	private EntityTimer entityTimer;
 	
@@ -36,6 +42,11 @@ public class TimerInstance implements Comparable<TimerInstance>, Serializable
 	}
 	
 	public void call()
+	{
+		executor.execute(this::callBlocking);
+	}
+	
+	public void callBlocking()
 	{
 		try
 		{

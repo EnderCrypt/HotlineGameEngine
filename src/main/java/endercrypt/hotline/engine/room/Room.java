@@ -1,12 +1,15 @@
 package endercrypt.hotline.engine.room;
 
 
-import java.awt.Graphics2D;
+import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import java.io.Serializable;
 
-import endercrypt.hotline.engine.entities.GameEntities;
+import endercrypt.hotline.engine.core.HotlineGameEngine;
+import endercrypt.hotline.engine.entities.EntityManager;
 import endercrypt.hotline.engine.entities.GameEntity;
+import endercrypt.hotline.engine.graphics.HotlineGraphics;
+import endercrypt.hotline.engine.timer.TimerManager;
 import net.ddns.endercrypt.library.keyboardmanager.KeyboardEvent;
 import net.ddns.endercrypt.library.position.Position;
 
@@ -19,31 +22,34 @@ public class Room implements Serializable
 	 * 
 	 */
 	
-	private GameEntities entities = new GameEntities(this);
+	private transient HotlineGameEngine hotline;
+	
+	private TimerManager timers = new TimerManager();
+	private EntityManager entities = new EntityManager(this);
 	
 	private transient View view;
 	
-	private long frameCount = 0;
+	private long frames = 0;
 	
-	public Room()
+	protected final void attach(HotlineGameEngine hotline, View view)
 	{
-		
-	}
-	
-	public Room(GameEntity initGameEntity)
-	{
-		this();
-		entities.add(initGameEntity);
-	}
-	
-	protected final void attach(View view)
-	{
+		this.hotline = hotline;
 		this.view = view;
 	}
 	
-	public long getFrameCount()
+	public HotlineGameEngine getHotline()
 	{
-		return frameCount;
+		return hotline;
+	}
+	
+	public TimerManager getTimers()
+	{
+		return timers;
+	}
+	
+	public EntityManager getEntities()
+	{
+		return entities;
 	}
 	
 	public View getView()
@@ -51,9 +57,9 @@ public class Room implements Serializable
 		return view;
 	}
 	
-	public GameEntities entities()
+	public long getFrames()
 	{
-		return entities;
+		return frames;
 	}
 	
 	public void triggerKeyEvent(KeyboardEvent keyboardEvent)
@@ -66,36 +72,42 @@ public class Room implements Serializable
 	
 	public void update()
 	{
-		frameCount++;
+		frames++;
+		
+		// update timers
+		timers.update(frames);
+		
 		// update entities
 		for (GameEntity gameEntity : entities.getAllEntities().toArray(GameEntity[]::new))
 		{
 			gameEntity.update();
 		}
+		
 		// update view
 		view.update();
 	}
 	
-	public void draw(Graphics2D g2d)
+	public void draw(HotlineGraphics graphics)
 	{
-		AffineTransform defaultTransform = g2d.getTransform();
-		
-		Position viewTranslation = view.getTranslation();
+		// transform for view
+		Position viewTranslation = view.getTranslation(getHotline());
 		AffineTransform transform = new AffineTransform();
 		transform.translate(viewTranslation.x, viewTranslation.y);
-		g2d.setTransform(transform);
+		graphics.setTransform(transform);
 		
 		// draw entities
+		graphics.setColor(Color.WHITE);
 		for (GameEntity gameEntity : entities.getAllEntitiesByDepth().toArray(GameEntity[]::new))
 		{
-			gameEntity.draw(g2d);
+			gameEntity.draw(graphics);
 		}
 		
 		// draw hud
-		g2d.setTransform(defaultTransform);
+		graphics.resetTransform();
+		graphics.setColor(Color.WHITE);
 		for (GameEntity gameEntity : entities.getAllEntitiesByDepth().toArray(GameEntity[]::new))
 		{
-			gameEntity.drawHud(g2d);
+			gameEntity.drawHud(graphics);
 		}
 	}
 }

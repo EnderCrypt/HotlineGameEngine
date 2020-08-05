@@ -8,10 +8,12 @@ import java.util.PriorityQueue;
 public class TimerManager implements Serializable
 {
 	private static final long serialVersionUID = -6349610401060824575L;
+	
 	/**
 	 * 
 	 */
-	private PriorityQueue<TimerInstance> timers = new PriorityQueue<TimerInstance>();
+	
+	private PriorityQueue<TimerInstance> timers = new PriorityQueue<>();
 	
 	public void add(long frame, EntityTimer timer)
 	{
